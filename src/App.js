@@ -154,7 +154,19 @@ class App extends Component {
       productIdSelected: product.id,
       formStatus: 'Edit'
     })
+  }
 
+  // delete button
+  deleteButtonHandler = (productId) => {
+    axios
+      .delete(`http://localhost:8181/product/${productId}`)
+      .then(res => {
+        console.log(res)
+        this.componentDidMount()
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   componentDidMount() {
@@ -221,7 +233,7 @@ class App extends Component {
                       </div>
                       <div style={{ float: 'right', marginTop: '-10px' }}>
                         <button onClick={() => this.editButtonHandler(product)} className="card-link btn btn-small btn-outline-primary">Edit</button>
-                        <button className="card-link btn btn-small btn-outline-danger">Delete</button>
+                        <button onClick={() => this.deleteButtonHandler(product.id)} className="card-link btn btn-small btn-outline-danger">Delete</button>
                       </div>
                     </div>
                   </div>
