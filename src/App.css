@@ -5,19 +5,30 @@
   padding: 0;
 }
 
-.overlay{
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0);
-  text-align: center;
-  z-index: 9999;
+.overlay .card{
+  width: 20rem;
+  z-index: -1;
+  position: absolute;
+  top: 8%;
+  right: 0;
+  border-radius: 10px;
+  opacity:0;
+  text-align: left;
   transition: 1s;
 }
 
+.products .card img{
+  border-radius: 10px 20px;
+  box-shadow: -3px 3px 6px 3px rgba(0, 0, 0, 0.3);
+}
+
+.add{
+  position: fixed;
+  display: block;
+  z-index: 999;
+  bottom: 3%;
+  left: 2%;
+}
 
 @media (min-width: 768px) { 
   body{
@@ -47,6 +58,7 @@
     padding-top: 2%;
     padding-left: 3%;
     padding-right: 2%;
+    padding-bottom: 3.5%;
     background: #F8F8FF;
   }
 

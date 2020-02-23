@@ -3,7 +3,6 @@ import './App.css'
 // import { BrowserRouter as Router, Route } from 'react-router-dom'
 import axios from 'axios'
 // import Navbar from './components/layouts/Navbar'
-import Products from './components/pages/Products'
 
 class App extends Component {
   constructor(props) {
@@ -16,12 +15,16 @@ class App extends Component {
       name: '',
       image: '',
       category: 0,
+      realCategory: '',
       price: 0,
       stock: 0,
-      searchName: ''
+      searchName: '',
+      formStatus: 'Add',
+      productIdSelected: null
     }
   }
 
+  // When nav clicked
   onClickMenu = (event) => {
     event.preventDefault()
     this.setState({
@@ -40,11 +43,13 @@ class App extends Component {
       })
   }
 
+  // When searching
   onChangeSearch = (event) => {
     this.setState({
       all_class: 'nav-link active',
       food_class: 'nav-link',
       drink_class: 'nav-link',
+      searchName: event.target.value
     })
     axios
       .get(`http://localhost:8181/product/?name=${event.target.value}`)
@@ -56,26 +61,17 @@ class App extends Component {
       })
   }
 
-  getByName = () => {
-    axios
-      .get(`http://localhost:8181/product/?name=${this.state.searchName}`)
-      .then(res => {
-        this.setState({ products: res.data.result })
-        console.log(this.state.products)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
+  // on input of form changed
   onChangeHandler = event => {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  // when user input image file
   handleFileChange = e => {
     this.setState({ [e.target.name]: e.target.files[0] })
   }
 
+  // Form submit
   onSubmitHandler = event => {
     event.preventDefault()
     let formData = new FormData()
@@ -85,20 +81,80 @@ class App extends Component {
     formData.append("category", this.state.category)
     formData.append("price", this.state.price)
     formData.append("stock", this.state.stock)
+    if (this.state.formStatus === "Add") {
+      this.postData(formData)
+    }
+    else if (this.state.formStatus === "Edit") {
+      if (this.state.image === "") {
+        formData.delete("image")
+        this.patchData(formData)
+      }
+      else {
+        this.patchData(formData)
+      }
+    }
+  }
+
+  // Edit data
+  patchData = (formData) => {
+    const options = {
+      method: "PATCH",
+      body: formData
+    }
+    fetch(`http://localhost:8181/product/${this.state.productIdSelected}`, options)
+      .then(res => {
+        console.log(res, "Data has been updated")
+        this.componentDidMount()
+      })
+  }
+
+  // Add Data
+  postData = (formData) => {
     const options = {
       method: "POST",
       body: formData
     }
     fetch(`http://localhost:8181/product/`, options)
       .then(res => {
-        console.log(res)
-        var products = [...this.state.products]
-        products.push(res.data)
-        this.setState({ products })
+        console.log(res, "Data has been added")
+        this.componentDidMount()
       })
-      .catch(err => {
-        console.log(err)
-      })
+  }
+
+  // close button
+  closeButtonHandler = () => {
+    document.querySelector('.overlay .card').style.zIndex = -1
+    document.querySelector('.overlay .card').style.opacity = 0
+  }
+
+  // add button
+  addButtonHandler = () => {
+    this.setState({
+      formStatus: 'Add',
+      name: '',
+      image: '',
+      category: '',
+      price: 0,
+      stock: 0,
+    })
+    document.querySelector('.overlay .card').style.zIndex = 9999
+    document.querySelector('.overlay .card').style.opacity = 1
+  }
+
+  // edit button
+  editButtonHandler = (product) => {
+    document.querySelector('.overlay .card').style.zIndex = 9999
+    document.querySelector('.overlay .card').style.opacity = 1
+
+    this.setState({
+      name: product.name,
+      category: product.category,
+      price: product.price,
+      stock: product.stock,
+      productIdSelected: product.id,
+      formStatus: 'Edit'
+    })
+
   }
 
   componentDidMount() {
@@ -143,68 +199,89 @@ class App extends Component {
           </div>
         </nav >
 
+        {/* Products */}
         <div className="row">
           <div className="col-md-9 products">
-            <Products products={this.state.products} />
+            <div className="row">
+              <h3 className="add" onClick={this.addButtonHandler}>
+                <button className="badge badge-pill badge-warning">
+                  <i className="material-icons">add</i>
+                </button>
+              </h3>
+              {this.state.products.map((product, index) =>
+                <div className="col-md-6 col-lg-4" key={product.id}>
+                  <div className="card">
+                    <img src={product.image} className="card-img-top" alt="" />
+                    <div className="card-body">
+                      <div style={{ float: 'left', marginLeft: '-10px' }}>
+                        <p className="card-text" style={{ marginTop: '-15px' }}>{product.name}</p>
+                        <h6 className="card-title" style={{ marginTop: '-15px', fontWeight: 'bolder' }}>
+                          Rp. {product.price}
+                        </h6>
+                      </div>
+                      <div style={{ float: 'right', marginTop: '-10px' }}>
+                        <button onClick={() => this.editButtonHandler(product)} className="card-link btn btn-small btn-outline-primary">Edit</button>
+                        <button className="card-link btn btn-small btn-outline-danger">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
+          {/* Cart and Form */}
           <div className="col-md-3">
             <div className="row" style={{ margin: '10px' }}>
-              <div className="col-md-12" style={{ textAlign: 'center' }}>
+              <div className="col-md-12" style={{ textAlign: 'center', position: 'relative' }}>
                 <h6>Cart <span className="badge badge-primary badge-pill">0</span></h6>
                 <small>{this.state.searchName}</small>
-                <h3>
-                  <a href="#tambah" className="badge badge-pill badge-warning" data-toggle="modal">
-                    <i className="material-icons">add</i>
-                  </a>
-                </h3>
+                <div className="overlay">
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">{this.state.formStatus} Menu</h5>
+                      <hr />
+                      <form encType="multipart/form-data" onSubmit={this.onSubmitHandler}>
+                        <div className="form-group">
+                          <input placeholder="Product Name..." value={this.state.name} required className="form-control" type="text" name="name" onChange={this.onChangeHandler}></input>
+                        </div>
+                        <div className="form-group">
+                          <label>Image:</label>
+                          <input className="form-control-file" type="file" name="image" onChange={this.handleFileChange}></input>
+                        </div>
+                        <div className="form-group">
+                          <label>Category:</label>
+                          <select className="form-control" required name="category" onChange={this.onChangeHandler}>
+                            <option selected disabled>Choose...</option>
+                            <option value={1}>Food</option>
+                            <option value={2}>Drink</option>
+                          </select>
+                        </div>
+                        <label>Price:</label>
+                        <div className="input-group">
+                          <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon1">Rp.</span>
+                          </div>
+                          <input required placeholder="Price..." value={this.state.price} className="form-control" type="number" name="price" onChange={this.onChangeHandler}></input>
+                        </div>
+                        <br />
+                        <div className="form-group">
+                          <label>Stock:</label>
+                          <input placeholder="Stock..." value={this.state.stock} required className="form-control" type="number" name="stock" onChange={this.onChangeHandler}></input>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Send</button>
+                        <button type="reset" className="btn btn-danger" onClick={this.closeButtonHandler} style={{ float: 'right' }}>Close</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
 
-        <div className="modal fade" id="tambah" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="staticBackdropLabel">Add Menu</h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <form encType="multipart/form-data" onSubmit={this.onSubmitHandler}>
-                  <div className="form-group">
-                    <input placeholder="Product Name..." class="form-control" type="text" name="name" onChange={this.onChangeHandler}></input>
-                  </div>
-                  <div className="form-group">
-                    <label>Image:</label>
-                    <input class="form-control-file" type="file" name="image" onChange={this.handleFileChange}></input>
-                  </div>
-                  <div className="form-group">
-                    <select class="form-control" name="category" onChange={this.onChangeHandler}>
-                      <option selected="on" disabled="on">Category...</option>
-                      <option value="1">Food</option>
-                      <option value="2">Drink</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <input placeholder="Price..." class="form-control" type="number" name="price" onChange={this.onChangeHandler}></input>
-                  </div>
-                  <div className="form-group">
-                    <input placeholder="Stock..." class="form-control" type="number" name="stock" onChange={this.onChangeHandler}></input>
-                  </div>
-                  <button type="submit" className="btn btn-primary">Send</button>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div >
     )
   }
 }
