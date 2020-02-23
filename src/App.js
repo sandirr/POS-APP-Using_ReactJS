@@ -41,6 +41,11 @@ class App extends Component {
   }
 
   onChangeSearch = (event) => {
+    this.setState({
+      all_class: 'nav-link active',
+      food_class: 'nav-link',
+      drink_class: 'nav-link',
+    })
     axios
       .get(`http://localhost:8181/product/?name=${event.target.value}`)
       .then(res => {
@@ -80,8 +85,6 @@ class App extends Component {
     formData.append("category", this.state.category)
     formData.append("price", this.state.price)
     formData.append("stock", this.state.stock)
-
-    console.log(formData)
     const options = {
       method: "POST",
       body: formData
@@ -108,6 +111,7 @@ class App extends Component {
         console.log(err)
       })
   }
+
   render() {
     return (
       <div>
@@ -143,16 +147,62 @@ class App extends Component {
           <div className="col-md-9 products">
             <Products products={this.state.products} />
           </div>
-          
+
           <div className="col-md-3">
             <div className="row" style={{ margin: '10px' }}>
               <div className="col-md-12" style={{ textAlign: 'center' }}>
                 <h6>Cart <span className="badge badge-primary badge-pill">0</span></h6>
                 <small>{this.state.searchName}</small>
+                <h3>
+                  <a href="#tambah" className="badge badge-pill badge-warning" data-toggle="modal">
+                    <i className="material-icons">add</i>
+                  </a>
+                </h3>
               </div>
             </div>
           </div>
+        </div>
 
+
+        <div className="modal fade" id="tambah" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="staticBackdropLabel">Add Menu</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <form encType="multipart/form-data" onSubmit={this.onSubmitHandler}>
+                  <div className="form-group">
+                    <input placeholder="Product Name..." class="form-control" type="text" name="name" onChange={this.onChangeHandler}></input>
+                  </div>
+                  <div className="form-group">
+                    <label>Image:</label>
+                    <input class="form-control-file" type="file" name="image" onChange={this.handleFileChange}></input>
+                  </div>
+                  <div className="form-group">
+                    <select class="form-control" name="category" onChange={this.onChangeHandler}>
+                      <option selected="on" disabled="on">Category...</option>
+                      <option value="1">Food</option>
+                      <option value="2">Drink</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <input placeholder="Price..." class="form-control" type="number" name="price" onChange={this.onChangeHandler}></input>
+                  </div>
+                  <div className="form-group">
+                    <input placeholder="Stock..." class="form-control" type="number" name="stock" onChange={this.onChangeHandler}></input>
+                  </div>
+                  <button type="submit" className="btn btn-primary">Send</button>
+                </form>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )

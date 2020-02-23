@@ -5,6 +5,20 @@
   padding: 0;
 }
 
+.overlay{
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0);
+  text-align: center;
+  z-index: 9999;
+  transition: 1s;
+}
+
+
 @media (min-width: 768px) { 
   body{
     overflow: hidden;
@@ -30,7 +44,9 @@
   .products{
     height: 92vh !important;
     overflow: auto;
-    padding: 3% 2% 0;
+    padding-top: 2%;
+    padding-left: 3%;
+    padding-right: 2%;
     background: #F8F8FF;
   }
 
