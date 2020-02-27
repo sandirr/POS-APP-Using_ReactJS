@@ -25,6 +25,10 @@
   height: 11rem;
 }
 
+.products .card .img-handle{
+  border: none;
+}
+
 .add{
   position: absolute;
   display: block;
@@ -41,14 +45,14 @@
     box-shadow:0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   
-  .nav-link:hover::after{
+  .nav-link.a:hover::after{
     content: '';
     display: block;
     border-bottom: 3px solid blue;
     margin: 0 auto -3px;
   }
 
-  .nav-link.active::after{
+  .nav-link.a.active::after{
     content: '';
     display: block;
     border-bottom: 3px solid blue;
