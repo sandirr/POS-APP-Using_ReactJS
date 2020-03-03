@@ -30,7 +30,7 @@ const Product = (state = initialState, action) => {
             }
 
         case 'POST_PRODUCT_FULFILLED':
-            const newDataProducts = [...state.products, action.payload.data.result]
+            const newDataProducts = [...state.products, action.payload.data.result[0]]
             return {
                 ...state,
                 products: newDataProducts
@@ -62,7 +62,6 @@ const Product = (state = initialState, action) => {
             }
 
         case 'UPDATE_PRODUCT_FULFILLED':
-            console.log(action.payload.data.result.id)
             const newProductAfterUpdate = state.products.map(product => {
                 if (product.id === action.payload.data.result.id) {
                     return action.payload.data.result;

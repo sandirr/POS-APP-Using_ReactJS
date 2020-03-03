@@ -11,3 +11,7 @@
     width: 50px;
     height: 35px;
 }
+
+table.table td button{
+    font-size: 12px;
+}

@@ -13,7 +13,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        if (localStorage.getItem('token')) {
+        if (localStorage.getItem('isAuth')) {
             this.props.history.push('/')
         }
     }
@@ -31,6 +31,8 @@ class Login extends Component {
                 console.log(res.data);
                 localStorage.setItem('token', res.data.result.token)
                 localStorage.setItem('user-id', res.data.result.id)
+                localStorage.setItem('status', res.data.result.status)
+                localStorage.setItem('isAuth', true)
                 this.props.history.push('/')
             })
             .catch(err => {

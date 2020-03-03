@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 
 class Navbar extends Component {
     logout = () => {
-        console.log('/')
+            localStorage.removeItem('user-id')
+            localStorage.removeItem('token')
+            localStorage.removeItem('isAuth')
     }
     render() {
         return (
