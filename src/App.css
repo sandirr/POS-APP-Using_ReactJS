@@ -5,42 +5,6 @@
   padding: 0;
 }
 
-.overlay .card{
-  width: 20rem;
-  z-index: -1;
-  position: fixed;
-  top: 3px;
-  bottom: 7px;
-  right: -350px;
-  border-radius: 10px;
-  opacity:0;
-  text-align: left;
-  transition: 1s;
-  box-shadow: -2px 4px 4px 1px rgba(0, 0, 0, 0.5);
-}
-
-.products .card img{
-  border-radius: 10px 20px;
-  box-shadow: -3px 3px 6px 3px rgba(0, 0, 0, 0.3);
-  height: 11rem;
-}
-
-.products .card .img-handle{
-  border: none;
-}
-
-.add{
-  position: absolute;
-  display: block;
-  z-index: 999;
-  bottom: 3%;
-  right: 2%;
-}
-
-@media (min-width: 768px) { 
-  body{
-    overflow: hidden;
-  }
   nav.navbar{
     box-shadow:0px 4px 10px rgba(0, 0, 0, 0.1);
   }
@@ -58,38 +22,3 @@
     border-bottom: 3px solid blue;
     margin: 0 auto -3px;
   }
-
-  .products{
-    position: relative;
-    height: 92vh !important;
-    overflow-y: auto;
-    padding-top: 2%;
-    padding-left: 3%;
-    padding-right: 2%;
-    /* padding-bottom: 5%; */
-    background: #F8F8FF;
-  }
-
-  nav.navbar{
-    margin-right: -1.7%;
-  }
-
-  .products .card{
-    border: none;
-    background: transparent;
-  }
-
-  .navbar-nav{
-    padding-right: 3%;
-  }
-} 
-
-
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

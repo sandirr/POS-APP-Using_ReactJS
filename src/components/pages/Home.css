@@ -1,0 +1,13 @@
+.products, .table-dash{
+    margin-top: 20px;
+    background:white;
+}
+
+.table-dash table th,.table-dash table td{
+    text-align: center;
+}
+
+.table-dash img{
+    width: 50px;
+    height: 35px;
+}

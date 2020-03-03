@@ -1,0 +1,27 @@
+.card{
+    border:none;
+    margin-bottom: -60px;
+    background: transparent;
+}
+
+.card img{
+    border-radius: 10px 25px;
+    box-shadow: -10px 10px 7px rgba(0, 0, 0, .3);
+    height: 11rem;
+}
+
+.card .card-body button{
+    position: relative;
+    float: right;
+    top: -63px;
+    right: -10px;
+    padding: 4% 9%;
+    font-size: .7em;
+}
+
+.card .card-body .card-title
+{ 
+    position: relative;
+    top: -15px;
+    font-weight: bolder;
+}
