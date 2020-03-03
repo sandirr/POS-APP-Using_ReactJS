@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import CardProduct from '../layout/CardProduct'
 import './Home.css'
+import Navbar from '../layout/Navbar'
 import { connect } from 'react-redux'
 import { getProducts } from '../redux/actions/Product'
 
@@ -20,6 +21,7 @@ class Products extends Component {
     render() {
         return (
             <Fragment>
+                <Navbar/>
                 <div className="container bg-light">
                     <div className="row products">
                         {this.props.products.map(product =>

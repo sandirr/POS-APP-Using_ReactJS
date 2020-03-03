@@ -5,7 +5,7 @@ import { getCategories, patchCategory } from '../redux/actions/Category'
 class Editcategory extends Component {
     state = {
         name: '',
-        id:0
+        id: 0
     }
     componentWillReceiveProps({ data }) {
         this.onSetValue(data);
@@ -13,8 +13,8 @@ class Editcategory extends Component {
 
     onSetValue = (data) => {
         this.setState({
-            name:data.name,
-            id:data.id
+            name: data.name,
+            id: data.id
         })
     }
     getCategories() {
@@ -42,7 +42,7 @@ class Editcategory extends Component {
                 <div className="modal-dialog modal-dialog-scrollable" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalScrollableTitle">Add Category</h5>
+                            <h5 className="modal-title" id="exampleModalScrollableTitle">Edit Category</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

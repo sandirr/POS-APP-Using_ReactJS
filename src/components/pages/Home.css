@@ -15,3 +15,12 @@
 table.table td button{
     font-size: 12px;
 }
+
+.secure-img{
+    background-image: url(https://images.idgesg.net/images/article/2019/08/cso_gdpr_data_privacy_network_security_by_anya_berkut_gettyimages-1017910874_2400x1600-100808199-large.jpg);
+    height: 500px;
+    width: 100%;
+    margin-top:-350px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
