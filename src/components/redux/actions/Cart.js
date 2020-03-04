@@ -8,6 +8,14 @@ export const postCart = (data) => {
     }
 }
 
+export const manipulateQuantity = (data) => {
+    return {
+        type: 'MANIPULATE_QUANTITY',
+        payload: 
+            {data}
+    }
+}
+
 export const checkout = (data) => {
     return {
         type: 'CHECKOUT',

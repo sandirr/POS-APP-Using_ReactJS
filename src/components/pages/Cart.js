@@ -3,9 +3,37 @@ import { connect } from 'react-redux'
 import './Home.css'
 import Navbar from '../layout/Navbar'
 import uniqid from 'uniqid'
-import { checkout } from '../redux/actions/Cart'
+import { checkout, manipulateQuantity } from '../redux/actions/Cart'
 
 class Cart extends Component {
+    state = {
+        cashier: localStorage.getItem('user-id'),
+        tPrice: 0
+    }
+    addQuantity = (data) => {
+        if (data.quantity < data.stock) {
+            data.quantity += 1
+            this.props.dispatch(manipulateQuantity(data))
+        }
+    }
+    reduceQuantity = (data) => {
+        if (data.quantity > 1) {
+            data.quantity -= 1
+            this.props.dispatch(manipulateQuantity(data))
+        }
+    }
+    countTotal = () => {
+        var tPrice = 0
+        this.props.productsInCart.forEach(e => {
+            tPrice += (e.price * e.quantity)
+        })
+        this.setState({
+            tPrice: tPrice
+        })
+    }
+    componentDidMount() {
+        this.countTotal()
+    }
     purchaseHandler = () => {
         const data = {
             "idBuyer": `${uniqid()}`,
@@ -35,12 +63,12 @@ class Cart extends Component {
                                         <h6 className="mt-0 cartName">{purchase.name}</h6>
                                         <span style={{ position: 'relative', top: '-6px' }}>
                                             <button className="btn btn-outline-primary btn-sm"
-                                                onClick={this.reduceStock}>-</button>
+                                                onClick={() => this.reduceQuantity(purchase)}>-</button>
 
                                             <button className="btn cartStock">{purchase.quantity}</button>
 
                                             <button className="btn btn-outline-primary btn-sm"
-                                                onClick={this.addStock}>+</button>
+                                                onClick={() => this.addQuantity(purchase)}>+</button>
                                             <span id={purchase.price} style={{ float: 'right' }} className="cartPrice">{purchase.price}</span>
                                         </span>
                                     </div>
@@ -48,7 +76,35 @@ class Cart extends Component {
                                 <hr />
                             </li>
                         )}
-                        <button className="btn btn-info" onClick={this.purchaseHandler}>Checkout</button>
+                        <button data-toggle="modal" data-target="#purchase-detail" className="btn btn-info">Checkout</button>
+
+                        <div className="modal fade" id="purchase-detail" role="dialog" aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-scrollable" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalScrollableTitle">Irsandi Cafe</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <div className="container-fluid">
+                                            <p>Cashier #{this.state.cashier}</p>
+                                            {this.props.productsInCart.map((product, index) =>
+                                                <div className="row" key={index}>
+                                                    <div className="col-md-4">{product.name}</div>
+                                                    <div className="col-md-4">Rp. {product.price}</div>
+                                                    <div className="col-md-2">x{product.quantity}</div>
+                                                </div>
+                                            )}
+                                            <p className="mt-4">Total : Rp. {this.state.tPrice}</p>
+                                            <button onClick={this.purchaseHandler}
+                                                className="btn btn-info mt-3" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 )
             }

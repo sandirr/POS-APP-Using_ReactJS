@@ -28,6 +28,19 @@ const Cart = (state = initialState, action) => {
                 totalPurchase: 0
             }
 
+        case 'MANIPULATE_QUANTITY':
+            console.log(action)
+            const newProductAfterUpdate = state.cart.map(product => {
+                if (product.productId === action.payload.data.productId) {
+                    return action.payload.data
+                }
+                return product
+            })
+            return {
+                ...state,
+                cart: newProductAfterUpdate
+            }
+
         // case 'DELETE_USER_FULFILLED':
         //     console.log(action.payload.data)
         //     const newUserAfterDelete =

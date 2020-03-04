@@ -11,6 +11,7 @@ class CardProduct extends Component {
                 a = 0
                 return alert('Already in cart')
             }
+            return product
         })
 
         if (a !== 0) {
