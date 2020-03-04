@@ -15,7 +15,8 @@ class Product extends Component {
     }
 
     getProducts() {
-        this.props.dispatch(getProducts())
+        const data={}
+        this.props.dispatch(getProducts(data))
     }
 
     deleteData = (id) => {

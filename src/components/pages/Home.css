@@ -24,3 +24,10 @@ table.table td button{
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.nav-product{
+    background:transparent;
+    margin-top:15px;
+    margin-bottom:-5px;
+    border-left:5px solid #5bc0de;
+}

@@ -12,13 +12,13 @@
   .nav-link.a:hover::after{
     content: '';
     display: block;
-    border-bottom: 3px solid blue;
+    border-bottom: 3px solid #5bc0de;
     margin: 0 auto -3px;
   }
 
   .nav-link.a.active::after{
     content: '';
     display: block;
-    border-bottom: 3px solid blue;
+    border-bottom: 3px solid #5bc0de;
     margin: 0 auto -3px;
   }

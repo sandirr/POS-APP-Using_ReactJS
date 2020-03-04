@@ -1,6 +1,7 @@
 
 const initialState = {
-    products: []
+    products: [],
+    pages: []
 }
 
 const Product = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const Product = (state = initialState, action) => {
         case 'GET_PRODUCT_FULFILLED':
             return {
                 ...state,
-                products: action.payload.data.result
+                products: action.payload.data.result,
+                pages:action.payload.data.totalPages
             }
 
         case 'POST_PRODUCT_PENDING':

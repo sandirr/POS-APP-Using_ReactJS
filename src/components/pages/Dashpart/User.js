@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import { getUsers } from '../../redux/actions/User'
 
 import Deleteuser from '../../modals/Deleteuser'
+import Edituser from '../../modals/Edituser'
 
 class User extends Component {
 
     state = {
         id: '',
-        status: 'cashier'
+        data: []
     }
 
     getUsers() {
@@ -22,9 +23,9 @@ class User extends Component {
         })
     }
 
-    editData = (e) => {
+    editData = (data) => {
         this.setState({
-            status: e.target.value
+            data: data
         })
     }
 
@@ -34,33 +35,34 @@ class User extends Component {
 
     render() {
         const Buttondelete = (user) => {
-            if (user.user.status === "admin") {
+            if (user.user.status === "cashier") {
                 return (
-                    <button disabled={true} className="btn btn-outline-danger"
-                        style={{ cursor: 'not-allowed' }}>Delete</button>
+                    <span>
+                        <button className="btn btn-outline-warning"
+                            data-toggle="modal" data-target="#edit-user"
+                            onClick={() => this.editData(user.user)}>Edit</button> - <button className="btn btn-outline-danger"
+                            data-toggle="modal" data-target="#delete-user"
+                            onClick={() => this.deleteData(user.user.id)}>Delete</button>
+                    </span>
+                )
+            }
+            else if (parseInt(user.user.id) === parseInt(localStorage.getItem('user-id'))) {
+                return (
+                    <span>
+                        <button className="btn btn-outline-warning"
+                            data-toggle="modal" data-target="#edit-user"
+                            onClick={() => this.editData(user.user)}>Edit</button> - <button className="btn btn-outline-danger"
+                            disabled={true} style={{ cursor: 'not-allowed' }}>Delete</button>
+                    </span>
                 )
             }
             else {
                 return (
-                    <button className="btn btn-outline-danger"
-                        data-toggle="modal" data-target="#delete-user"
-                        onClick={() => this.deleteData(user.user.id)}>Delete</button>
-                )
-            }
-        }
-
-        const Statushandler = (user) => {
-            if (user.user.status === "admin") {
-                return (
-                    <span>Admin</span>
-                )
-            }
-            else {
-                return (
-                    <select value={this.state.status} onChange={this.editData}>
-                        <option value="admin">Admin</option>
-                        <option value="cashier">Cashier</option>
-                    </select>
+                    <span>
+                        <button className="btn btn-outline-warning"
+                            disabled={true} style={{ cursor: 'not-allowed' }}>Edit</button> - <button className="btn btn-outline-danger"
+                            disabled={true} style={{ cursor: 'not-allowed' }}>Delete</button>
+                    </span>
                 )
             }
         }
@@ -80,9 +82,7 @@ class User extends Component {
                             <tr key={user.id}>
                                 <th scope="row">{user.id}</th>
                                 <td>{user.name}</td>
-                                <td>
-                                    <Statushandler user={user} />
-                                </td>
+                                <td>{user.status}</td>
                                 <td>
                                     <Buttondelete user={user} />
                                 </td>
@@ -91,6 +91,7 @@ class User extends Component {
                     </tbody>
                 </table>
                 <Deleteuser id={this.state.id} />
+                <Edituser data={this.state.data}/>
             </div>
 
         )

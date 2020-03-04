@@ -10,27 +10,16 @@ export const getUsers = () => {
     }
 }
 
-// export const postCategory = (data) => {
-//     return {
-//         type: 'POST_CATEGORY',
-//         payload: axios({
-//             method: "POST",
-//             url: "http://localhost:8181/category",
-//             data: data
-//         })
-//     }
-// }
-
-// export const patchCategory = (data, id) => {
-//     return {
-//         type: 'UPDATE_CATEGORY',
-//         payload: axios({
-//             method: "PATCH",
-//             url: "http://localhost:8181/category/" + id,
-//             data: data
-//         })
-//     }
-// }
+export const patchUser = (data, id) => {
+    return {
+        type: 'UPDATE_USER',
+        payload: axios({
+            method: "PATCH",
+            url: "http://localhost:8181/user/" + id,
+            data: data
+        })
+    }
+}
 
 export const deleteUser = (id) => {
     return {

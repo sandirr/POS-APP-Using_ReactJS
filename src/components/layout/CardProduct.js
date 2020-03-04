@@ -14,7 +14,7 @@ class CardProduct extends Component {
                             <h6 className="card-title">Rp. {this.props.product.price}</h6>
                         </div>
 
-                        <button className="card-link btn btn-small btn-outline-primary">Add to Cart</button>
+                        <button className="card-link btn btn-small btn-outline-info">Add to Cart</button>
 
                     </div>
                 </div>

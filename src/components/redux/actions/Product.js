@@ -1,11 +1,17 @@
 import axios from 'axios';
 
-export const getProducts = () => {
+export const getProducts = (data) => {
+    const limit = data.limit || 8
+    const page = data.activePage || 1
+    const category = data.activeCategory || ''
+    const name= data.serachName || ''
+    const sort = data.sort || 'ASC'
+    const by = data.by || 'id'
     return {
         type: 'GET_PRODUCT',
         payload: axios({
             method: "GET",
-            url: "http://localhost:8181/product"
+            url: `http://localhost:8181/product/?limit=${limit}&page=${page}&category=${category}&name=${name}&sort=${sort}&by=${by}`
         })
     }
 }

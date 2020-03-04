@@ -55,28 +55,28 @@ const Users = (state = initialState, action) => {
                 users: newUserAfterDelete
             }
 
-        // case 'UPDATE_CATEGORY_PENDING':
-        //     return {
-        //         ...state,
-        //     }
+        case 'UPDATE_USER_PENDING':
+            return {
+                ...state,
+            }
 
-        // case 'UPDATE_CATEGORY_REJECTED':
-        //     return {
-        //         ...state,
-        //     }
+        case 'UPDATE_USER_REJECTED':
+            return {
+                ...state,
+            }
 
-        // case 'UPDATE_CATEGORY_FULFILLED':
-        //     console.log(action.payload.data)
-        //     const newCategoryAfterUpdate = state.categories.map(category => {
-        //         if (category.id === action.payload.data.result.id) {
-        //             return action.payload.data.result
-        //         }
-        //         return category
-        //     })
-        //     return {
-        //         ...state,
-        //         categories: newCategoryAfterUpdate
-        //     }
+        case 'UPDATE_USER_FULFILLED':
+            console.log(action.payload.data)
+            const newUserAfterUpdate = state.users.map(user => {
+                if (user.id === action.payload.data.result.id) {
+                    return action.payload.data.result
+                }
+                return user
+            })
+            return {
+                ...state,
+                users: newUserAfterUpdate
+            }
         default:
             return state
     }

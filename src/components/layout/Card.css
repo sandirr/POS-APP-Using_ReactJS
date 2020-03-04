@@ -8,6 +8,7 @@
     border-radius: 10px 25px;
     box-shadow: -10px 10px 7px rgba(0, 0, 0, .3);
     height: 11rem;
+    height: 145px;
 }
 
 .card .card-body button{
