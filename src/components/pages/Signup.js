@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import './Home.css'
+import Navbar from '../layout/Navbar'
 
 class Signup extends Component {
 
@@ -26,25 +26,31 @@ class Signup extends Component {
         axios
             .post("http://localhost:8181/user/register/", this.state)
             .then(res => {
-                this.props.history.push('/login')
+                this.props.history.push('/dash')
             })
             .catch(err => {
                 console.log(err)
             })
     }
 
+    componentDidMount() {
+        if (localStorage.getItem('status') !== 'admin') {
+            this.props.history.push('/')
+        }
+    }
+
     render() {
         return (
             <div>
+                <Navbar />
                 <div className="secure-img"></div>
                 <div className="container">
                     <div className="row justify-content-md-center">
                         <div className="col-md-8">
-                            <h4 style={{ margin: '20px auto' }}>Signup</h4>
                             <form onSubmit={this.onSubmit}>
                                 <div className="form-group">
                                     <label>Name</label>
-                                    <input required type="text" className="form-control" placeholder="Enter email" name="name" onChange={this.onChange} />
+                                    <input required type="text" className="form-control" placeholder="Enter name" name="name" onChange={this.onChange} />
                                 </div>
                                 <div className="form-group">
                                     <label>Email</label>
@@ -58,8 +64,7 @@ class Signup extends Component {
                                     <label>Retype Password</label>
                                     <input required type="password" className="form-control" placeholder="Enter password" name="password2" onChange={this.onChange} />
                                 </div>
-                                <Link to="/login" style={{ float: 'left' }}>Already have an account?</Link>
-                                <button type="submit" className="btn btn-primary" style={{ float: 'right' }}>Signup</button>
+                                <button type="submit" className="btn btn-primary" style={{ float: 'right' }}>Register</button>
                             </form>
                         </div>
                     </div>

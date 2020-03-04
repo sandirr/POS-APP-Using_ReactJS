@@ -94,29 +94,29 @@ class Products extends Component {
             <Fragment>
                 <Navbar />
                 <div className="container">
-                    <ul class="nav nav-product a">
-                        <li class="nav-item">
-                            <Link class="nav-link" id='' onClick={this.onClickMenu}>All</Link>
+                    <ul className="nav nav-product a">
+                        <li className="nav-item">
+                            <Link className="nav-link" id='' to="#" onClick={this.onClickMenu}>All</Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" id="food" onClick={this.onClickMenu}>Foods</Link>
+                        <li className="nav-item">
+                            <Link className="nav-link" id="food" to="#" onClick={this.onClickMenu}>Foods</Link>
                         </li>
-                        <li class="nav-item">
-                            <Link class="nav-link" id="drink" onClick={this.onClickMenu}>Drinks</Link>
+                        <li className="nav-item">
+                            <Link className="nav-link" id="drink" to="#" onClick={this.onClickMenu}>Drinks</Link>
                         </li>
-                        <li class="nav-item dropdown">
-                            <Link class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort</Link>
-                            <div class="dropdown-menu">
-                                <Link class="dropdown-item" id="ASC" onClick={this.onSort}>Ascending</Link>
-                                <Link class="dropdown-item" id="DESC" onClick={this.onSort}>Descending</Link>
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle" to="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort</Link>
+                            <div className="dropdown-menu">
+                                <Link className="dropdown-item" to="#" id="ASC" onClick={this.onSort}>Ascending</Link>
+                                <Link className="dropdown-item" to="#" id="DESC" onClick={this.onSort}>Descending</Link>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <Link class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By</Link>
-                            <div class="dropdown-menu">
-                                <Link class="dropdown-item" id="date_added" onClick={this.onBy}>Date Added</Link>
-                                <Link class="dropdown-item" id="name" onClick={this.onBy}>Name</Link>
-                                <Link class="dropdown-item" id="price" onClick={this.onBy}>Price</Link>
+                        <li className="nav-item dropdown">
+                            <Link className="nav-link dropdown-toggle" to="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By</Link>
+                            <div className="dropdown-menu">
+                                <Link className="dropdown-item" to="#" id="date_added" onClick={this.onBy}>Date Added</Link>
+                                <Link className="dropdown-item" to="#" id="name" onClick={this.onBy}>Name</Link>
+                                <Link className="dropdown-item" to="#" id="price" onClick={this.onBy}>Price</Link>
                             </div>
                         </li>
                         <form className="form-inline">
@@ -134,7 +134,7 @@ class Products extends Component {
                     <ul className="pagination justify-content-center">
                         {this.props.pages.map(page =>
                             <li className="page-item" key={page} id={page} onClick={() => this.changePage(page)}>
-                                <Link className="page-link" to="/">{page}</Link>
+                                <Link className="page-link" to="#">{page}</Link>
                             </li>
                         )}
                     </ul>

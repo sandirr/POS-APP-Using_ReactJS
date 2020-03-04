@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import './Home.css'
 
 class Login extends Component {
@@ -59,7 +58,6 @@ class Login extends Component {
                                     <label>Password</label>
                                     <input required type="password" className="form-control" placeholder="Enter password" name="password" onChange={this.onChange} />
                                 </div>
-                                <Link to="/signup" style={{ float: 'left' }}>Create new account!</Link>
                                 <button type="submit" className="btn btn-primary" style={{ float: 'right' }}>Login</button>
                             </form>
                         </div>

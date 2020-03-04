@@ -106,37 +106,37 @@ class Product extends Component {
 
     render() {
         return (
-            <div>
-                <ul class="nav nav-product">
-                    <li class="nav-item">
-                        <Link class="nav-link" id='' onClick={this.onClickMenu}>All</Link>
+            <div hidden={this.props.productHidden}>
+                <ul className="nav nav-product">
+                    <li className="nav-item">
+                        <Link to="#" className="nav-link" id='' onClick={this.onClickMenu}>All</Link>
                     </li>
-                    <li class="nav-item">
-                        <Link class="nav-link" id="food" onClick={this.onClickMenu}>Foods</Link>
+                    <li className="nav-item">
+                        <Link to="#" className="nav-link" id="food" onClick={this.onClickMenu}>Foods</Link>
                     </li>
-                    <li class="nav-item">
-                        <Link class="nav-link" id="drink" onClick={this.onClickMenu}>Drinks</Link>
+                    <li className="nav-item">
+                        <Link to="#" className="nav-link" id="drink" onClick={this.onClickMenu}>Drinks</Link>
                     </li>
-                    <li class="nav-item dropdown">
-                        <Link class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort</Link>
-                        <div class="dropdown-menu">
-                            <Link class="dropdown-item" id="ASC" onClick={this.onSort}>Ascending</Link>
-                            <Link class="dropdown-item" id="DESC" onClick={this.onSort}>Descending</Link>
+                    <li className="nav-item dropdown">
+                        <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort</Link>
+                        <div className="dropdown-menu">
+                            <Link to="#" className="dropdown-item" id="ASC" onClick={this.onSort}>Ascending</Link>
+                            <Link to="#" className="dropdown-item" id="DESC" onClick={this.onSort}>Descending</Link>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <Link class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By</Link>
-                        <div class="dropdown-menu">
-                            <Link class="dropdown-item" id="date_added" onClick={this.onBy}>Date Added</Link>
-                            <Link class="dropdown-item" id="name" onClick={this.onBy}>Name</Link>
-                            <Link class="dropdown-item" id="price" onClick={this.onBy}>Price</Link>
+                    <li className="nav-item dropdown">
+                        <Link to="#" className="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By</Link>
+                        <div className="dropdown-menu">
+                            <Link to="#" className="dropdown-item" id="date_added" onClick={this.onBy}>Date Added</Link>
+                            <Link to="#" className="dropdown-item" id="name" onClick={this.onBy}>Name</Link>
+                            <Link to="#" className="dropdown-item" id="price" onClick={this.onBy}>Price</Link>
                         </div>
                     </li>
                     <form className="form-inline">
                         <input className="form-control mr-sm-2" type="search" placeholder="Search" onChange={this.onChangeSearch} />
                     </form>
                 </ul>
-                <table className="table table-dash table-striped" hidden={this.props.productHidden}>
+                <table className="table table-dash table-striped">
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col">#ID</th>
@@ -170,6 +170,15 @@ class Product extends Component {
                         )}
                     </tbody>
                 </table>
+                <nav aria-label="Page navigation example">
+                    <ul className="pagination justify-content-center">
+                        {this.props.pages.map(page =>
+                            <li className="page-item" key={page} id={page} onClick={() => this.changePage(page)}>
+                                <Link to="#" className="page-link">{page}</Link>
+                            </li>
+                        )}
+                    </ul>
+                </nav>
                 <Addproduct />
                 <Editproduct data={this.state.data} />
                 <Deleteproduct id={this.state.id} />
@@ -181,7 +190,8 @@ class Product extends Component {
 
 const mapProducts = (state) => {
     return {
-        products: state.products.products
+        products: state.products.products,
+        pages: state.products.pages
     }
 }
 

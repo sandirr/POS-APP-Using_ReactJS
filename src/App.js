@@ -7,6 +7,7 @@ import Home from './components/pages/Home'
 import Login from './components/pages/Login'
 import Signup from './components/pages/Signup'
 import Dashboard from './components/pages/Dashboard'
+import Cart from './components/pages/Cart'
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/dash" component={Dashboard} />
+            <Route path="/cart" component={Cart} />
           </Switch>
         </Router>
       </Provider>

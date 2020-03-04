@@ -19,6 +19,13 @@ class Dashboard extends Component {
         userNav: 'btn btn-outline-info',
     }
 
+    signUp = (e) => {
+        e.preventDefault()
+        if (this.state.dataTarget === 'signup') {
+            this.props.history.push('/signup')
+        }
+    }
+
     activatedCategory = (event) => {
         this.setState({
             categoryHidden: false,
@@ -53,7 +60,7 @@ class Dashboard extends Component {
             userHidden: false,
             productHidden: true,
 
-            dataTarget: '#add',
+            dataTarget: 'signup',
 
             categoryNav: 'btn btn-outline-info',
             userNav: 'btn btn-outline-info active',
@@ -81,7 +88,8 @@ class Dashboard extends Component {
                         </div>
                         <div className="col-lg-1">
                             <div className="btn-group-vertical" style={{ position: 'fixed' }}>
-                                <button className="btn btn-outline-dark" data-toggle="modal" data-placement="right" title="Add" data-target={this.state.dataTarget}>
+                                <button onClick={this.signUp} className="btn btn-outline-dark" data-toggle="modal"
+                                    data-placement="right" title="Add" data-target={this.state.dataTarget}>
                                     <i className="material-icons">add_to_photos</i>
                                 </button>
                                 <button className={this.state.productNav} data-toggle="tooltip" data-placement="right"

@@ -41,8 +41,8 @@ class User extends Component {
                         <button className="btn btn-outline-warning"
                             data-toggle="modal" data-target="#edit-user"
                             onClick={() => this.editData(user.user)}>Edit</button> - <button className="btn btn-outline-danger"
-                            data-toggle="modal" data-target="#delete-user"
-                            onClick={() => this.deleteData(user.user.id)}>Delete</button>
+                                data-toggle="modal" data-target="#delete-user"
+                                onClick={() => this.deleteData(user.user.id)}>Delete</button>
                     </span>
                 )
             }
@@ -52,7 +52,7 @@ class User extends Component {
                         <button className="btn btn-outline-warning"
                             data-toggle="modal" data-target="#edit-user"
                             onClick={() => this.editData(user.user)}>Edit</button> - <button className="btn btn-outline-danger"
-                            disabled={true} style={{ cursor: 'not-allowed' }}>Delete</button>
+                                disabled={true} style={{ cursor: 'not-allowed' }}>Delete</button>
                     </span>
                 )
             }
@@ -61,14 +61,14 @@ class User extends Component {
                     <span>
                         <button className="btn btn-outline-warning"
                             disabled={true} style={{ cursor: 'not-allowed' }}>Edit</button> - <button className="btn btn-outline-danger"
-                            disabled={true} style={{ cursor: 'not-allowed' }}>Delete</button>
+                                disabled={true} style={{ cursor: 'not-allowed' }}>Delete</button>
                     </span>
                 )
             }
         }
         return (
-            <div>
-                <table className="table table-striped" hidden={this.props.userHidden}>
+            <div hidden={this.props.userHidden}>
+                <table className="table table-striped">
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col">#ID</th>
@@ -91,7 +91,7 @@ class User extends Component {
                     </tbody>
                 </table>
                 <Deleteuser id={this.state.id} />
-                <Edituser data={this.state.data}/>
+                <Edituser data={this.state.data} />
             </div>
 
         )

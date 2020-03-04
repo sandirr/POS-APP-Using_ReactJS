@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-// import axios from 'axios'
+import { connect } from 'react-redux'
 
 class Navbar extends Component {
     logout = () => {
@@ -33,7 +33,7 @@ class Navbar extends Component {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link a" to="/cart">
-                                    <i className="material-icons small">shopping_cart</i>Cart <span className="badge badge-info">0</span>
+                                    <i className="material-icons small">shopping_cart</i>Cart <span className="badge badge-info">{this.props.number}</span>
                                 </Link>
                             </li>
                             <li className="nav-item">
@@ -49,4 +49,10 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar
+const getNumber = (state) => {
+    return {
+        number: state.cart.totalPurchase
+    }
+}
+
+export default connect(getNumber)(Navbar)

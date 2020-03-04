@@ -8,9 +8,9 @@ import Deletecat from '../../modals/Deletecategory'
 import Editcategory from '../../modals/Editcategory'
 
 class Category extends Component {
-    state={
-        id:'',
-        data:[]
+    state = {
+        id: '',
+        data: []
     }
     getCategories() {
         this.props.dispatch(getCategories())
@@ -30,8 +30,8 @@ class Category extends Component {
     }
     render() {
         return (
-            <div>
-                <table className="table table-striped" name="table-category" hidden={this.props.categoryHidden}>
+            <div hidden={this.props.categoryHidden}>
+                <table className="table table-striped" name="table-category">
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col">#ID</th>
@@ -57,9 +57,9 @@ class Category extends Component {
                         )}
                     </tbody>
                 </table>
-                <Addcat/>
-                <Deletecat id={this.state.id}/>
-                <Editcategory data={this.state.data}/>
+                <Addcat />
+                <Deletecat id={this.state.id} />
+                <Editcategory data={this.state.data} />
             </div>
         )
     }
