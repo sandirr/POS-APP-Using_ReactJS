@@ -31,7 +31,7 @@ class Category extends Component {
     render() {
         return (
             <div>
-                <table className="table" name="table-category" hidden={this.props.categoryHidden}>
+                <table className="table table-striped" name="table-category" hidden={this.props.categoryHidden}>
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col">#ID</th>

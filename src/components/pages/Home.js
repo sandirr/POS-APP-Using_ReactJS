@@ -21,10 +21,57 @@ class Products extends Component {
         this.props.dispatch(getProducts(data))
     }
 
+    onClickMenu = (e) => {
+        this.setState({ activeCategory: e.target.id })
+        if (e.target.id === '') this.setState({ activeCategory: '' })
+        const data = {
+            activePage: 1,
+            activeCategory: e.target.id,
+            serachName: '',
+            sort: this.state.sort,
+            by: this.state.by
+        }
+        this.props.dispatch(getProducts(data))
+    }
+
+    onSort = (e) => {
+        this.setState({ sort: e.target.id })
+        const data = {
+            activePage: 1,
+            activeCategory: this.state.activeCategory,
+            serachName: '',
+            sort: e.target.id,
+            by: this.state.by
+        }
+        this.props.dispatch(getProducts(data))
+    }
+
+    onBy = (e) => {
+        this.setState({ by: e.target.id })
+        const data = {
+            activePage: 1,
+            activeCategory: this.state.activeCategory,
+            serachName: '',
+            sort: this.state.sort,
+            by: e.target.id
+        }
+        this.props.dispatch(getProducts(data))
+    }
+
+    onChangeSearch = (e) => {
+        this.setState({ serachName: e.target.value })
+        const data = {
+            activePage: 1,
+            activeCategory: '',
+            serachName: e.target.value,
+            sort: this.state.sort,
+            by: this.state.by
+        }
+        this.props.dispatch(getProducts(data))
+    }
+
     changePage = (e) => {
-        this.setState({
-            activePage: e
-        })
+        this.setState({ activePage: e })
         const data = {
             activePage: e,
             activeCategory: this.state.activeCategory,
@@ -47,26 +94,34 @@ class Products extends Component {
             <Fragment>
                 <Navbar />
                 <div className="container">
-                    <ul class="nav nav-product">
+                    <ul class="nav nav-product a">
                         <li class="nav-item">
-                            <Link class="nav-link" to="#">Active</Link>
+                            <Link class="nav-link" id='' onClick={this.onClickMenu}>All</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link" id="food" onClick={this.onClickMenu}>Foods</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link" id="drink" onClick={this.onClickMenu}>Drinks</Link>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <Link class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort</Link>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
+                                <Link class="dropdown-item" id="ASC" onClick={this.onSort}>Ascending</Link>
+                                <Link class="dropdown-item" id="DESC" onClick={this.onSort}>Descending</Link>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                        <li class="nav-item dropdown">
+                            <Link class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">By</Link>
+                            <div class="dropdown-menu">
+                                <Link class="dropdown-item" id="date_added" onClick={this.onBy}>Date Added</Link>
+                                <Link class="dropdown-item" id="name" onClick={this.onBy}>Name</Link>
+                                <Link class="dropdown-item" id="price" onClick={this.onBy}>Price</Link>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
+                        <form className="form-inline">
+                            <input className="form-control mr-sm-2" type="search" placeholder="Search" onChange={this.onChangeSearch} />
+                        </form>
                     </ul>
 
                     <div className="row products">

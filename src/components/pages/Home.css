@@ -8,12 +8,12 @@
 }
 
 .table-dash img{
-    width: 50px;
-    height: 35px;
+    width: 42px;
+    height: 23px;
 }
 
 table.table td button{
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .secure-img{
@@ -27,7 +27,20 @@ table.table td button{
 
 .nav-product{
     background:transparent;
-    margin-top:15px;
     margin-bottom:-5px;
     border-left:5px solid #5bc0de;
+}
+
+.nav-product.a{
+    background:transparent;
+    margin-top: 20px;
+    margin-bottom:-5px;
+    border-left:5px solid #5bc0de;
+}
+
+.nav-product .nav-link{
+    color: #5bc0de;
+    font-size: 14px;
+    font-family: 'Open Sans';
+    font-weight: bolder;
 }

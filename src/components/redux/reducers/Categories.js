@@ -65,7 +65,6 @@ const Category = (state = initialState, action) => {
             }
 
         case 'UPDATE_CATEGORY_FULFILLED':
-            console.log(action.payload.data)
             const newCategoryAfterUpdate = state.categories.map(category => {
                 if (category.id === action.payload.data.result.id) {
                     return action.payload.data.result

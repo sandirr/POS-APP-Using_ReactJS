@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getProducts = (data) => {
-    const limit = data.limit || 8
+    const limit = 8
     const page = data.activePage || 1
     const category = data.activeCategory || ''
     const name= data.serachName || ''

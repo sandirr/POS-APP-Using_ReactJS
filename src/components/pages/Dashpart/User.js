@@ -68,7 +68,7 @@ class User extends Component {
         }
         return (
             <div>
-                <table className="table" hidden={this.props.userHidden}>
+                <table className="table table-striped" hidden={this.props.userHidden}>
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col">#ID</th>
