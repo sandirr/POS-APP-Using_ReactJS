@@ -10,6 +10,7 @@ class Purchasedetail extends Component {
 
     componentWillReceiveProps({ id }) {
         this.getDetail(id)
+        this.setState({ id: id })
     }
 
     getDetail = (id) => {
@@ -28,11 +29,12 @@ class Purchasedetail extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            {this.props.detailHistory.map((e,index)=>
+                            <p>#ID Purchase: {this.state.id}</p>
+                            {this.props.detailHistory.map((e, index) =>
                                 <div className="row" key={index}>
                                     <div className="col-md-4">{e.name}</div>
-                            <div className="col-md-4">{e.Qty}</div>
-                            <div className="col-md-4">Rp. {e.Price}</div>
+                                    <div className="col-md-4">{e.Qty}</div>
+                                    <div className="col-md-4">Rp. {e.Price}</div>
                                 </div>
                             )}
                             <button className="btn btn-info mt-3" data-dismiss="modal">OK</button>
@@ -45,8 +47,8 @@ class Purchasedetail extends Component {
     }
 }
 
-const mapDetailHistory = (state)=>{
-    return{
+const mapDetailHistory = (state) => {
+    return {
         detailHistory: state.histories.detailHistory
     }
 }

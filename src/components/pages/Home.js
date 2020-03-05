@@ -62,7 +62,7 @@ class Products extends Component {
         this.setState({ serachName: e.target.value })
         const data = {
             activePage: 1,
-            activeCategory: '',
+            activeCategory: this.state.activeCategory,
             serachName: e.target.value,
             sort: this.state.sort,
             by: this.state.by
