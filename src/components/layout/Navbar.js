@@ -27,13 +27,13 @@ class Navbar extends Component {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link a" to="/dash">
-                                    <i className="material-icons small">person</i>Dashboard
+                                <Link className="nav-link a" to="/cart">
+                                    <i className="material-icons small">shopping_cart</i>Cart <span className="badge badge-info">{this.props.number}</span>
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link a" to="/cart">
-                                    <i className="material-icons small">shopping_cart</i>Cart <span className="badge badge-info">{this.props.number}</span>
+                                <Link className="nav-link a" to="/dash">
+                                    <i className="material-icons small">person</i>Dashboard
                                 </Link>
                             </li>
                             <li className="nav-item">

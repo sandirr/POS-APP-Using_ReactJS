@@ -3,7 +3,8 @@ import products from './Product'
 import categories from './Categories'
 import users from './Users'
 import cart from './Cart'
+import histories from './History'
 
 export default combineReducers({
-    products, categories, users, cart
+    products, categories, users, cart, histories
 })

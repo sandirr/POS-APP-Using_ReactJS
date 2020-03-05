@@ -19,24 +19,6 @@ const Users = (state = initialState, action) => {
                 users: action.payload.data.result
             }
 
-        // case 'POST_CATEGORY_PENDING':
-        //     return {
-        //         ...state
-        //     }
-
-        // case 'POST_CATEGORY_REJECTED':
-        //     return {
-        //         ...state
-        //     }
-
-        // case 'POST_CATEGORY_FULFILLED':
-
-        //     const newDataCategory = [...state.categories, action.payload.data.result]
-        //     return {
-        //         ...state,
-        //         categories: newDataCategory
-        //     }
-
         case 'DELETE_USER_PENDING':
             return {
                 ...state

@@ -4,6 +4,7 @@ import Navbar from '../layout/Navbar'
 import Category from './Dashpart/Category'
 import Product from './Dashpart/Product'
 import User from './Dashpart/User'
+import History from './Dashpart/History'
 
 class Dashboard extends Component {
 
@@ -11,12 +12,14 @@ class Dashboard extends Component {
         productHidden: false,
         categoryHidden: true,
         userHidden: true,
+        historyHidden: true,
 
         dataTarget: '#add-product',
 
         productNav: 'btn btn-outline-info active',
         categoryNav: 'btn btn-outline-info',
         userNav: 'btn btn-outline-info',
+        historyNav: 'btn btn-outline-info',
     }
 
     signUp = (e) => {
@@ -31,12 +34,14 @@ class Dashboard extends Component {
             categoryHidden: false,
             productHidden: true,
             userHidden: true,
+            historyHidden: true,
 
             dataTarget: '#add-category',
 
             categoryNav: 'btn btn-outline-info active',
             productNav: 'btn btn-outline-info',
             userNav: 'btn btn-outline-info',
+            historyNav: 'btn btn-outline-info',
         })
     }
 
@@ -45,11 +50,13 @@ class Dashboard extends Component {
             categoryHidden: true,
             userHidden: true,
             productHidden: false,
+            historyHidden: true,
 
             dataTarget: '#add-product',
 
             categoryNav: 'btn btn-outline-info',
             userNav: 'btn btn-outline-info',
+            historyNav: 'btn btn-outline-info',
             productNav: 'btn btn-outline-info active',
         })
     }
@@ -59,12 +66,30 @@ class Dashboard extends Component {
             categoryHidden: true,
             userHidden: false,
             productHidden: true,
+            historyHidden: true,
 
             dataTarget: 'signup',
 
             categoryNav: 'btn btn-outline-info',
             userNav: 'btn btn-outline-info active',
             productNav: 'btn btn-outline-info',
+            historyNav: 'btn btn-outline-info',
+        })
+    }
+
+    activatedHistory = (event) => {
+        this.setState({
+            categoryHidden: true,
+            userHidden: true,
+            productHidden: true,
+            historyHidden: false,
+
+            dataTarget: 'disabled',
+
+            categoryNav: 'btn btn-outline-info',
+            userNav: 'btn btn-outline-info',
+            productNav: 'btn btn-outline-info',
+            historyNav: 'btn btn-outline-info active',
         })
     }
 
@@ -85,6 +110,7 @@ class Dashboard extends Component {
                             <Product productHidden={this.state.productHidden} />
                             <Category categoryHidden={this.state.categoryHidden} />
                             <User userHidden={this.state.userHidden} />
+                            <History historyHidden={this.state.historyHidden} />
                         </div>
                         <div className="col-lg-1">
                             <div className="btn-group-vertical" style={{ position: 'fixed' }}>
@@ -103,7 +129,10 @@ class Dashboard extends Component {
                                     title="Category Management">
                                     <i className="material-icons">library_books</i>
                                 </button>
-                                <button className="btn btn-outline-info" data-toggle="tooltip" data-placement="right" title="View Purchase History">
+                                <button className={this.state.historyNav} data-toggle="tooltip" data-placement="right"
+                                    id="historyHidden"
+                                    onClick={() => this.activatedHistory()}
+                                    title="View Purchase History">
                                     <i className="material-icons">insert_chart</i>
                                 </button>
                                 <button className={this.state.userNav} data-toggle="tooltip" data-placement="right"

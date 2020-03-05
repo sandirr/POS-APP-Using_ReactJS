@@ -73,10 +73,12 @@ class Cart extends Component {
                                             <button className="btn btn-outline-primary btn-sm"
                                                 onClick={() => this.addQuantity(purchase)}>+</button>
                                             <span id={purchase.price} style={{ float: 'right' }} className="cartPrice">Rp. {purchase.price * purchase.quantity}</span>
-                                            <i className="material-icons"
+                                            <i className="material-icons medium"
                                                 style={{
                                                     position: 'relative',
-                                                    left: '90px', cursor: 'pointer'
+                                                    left: '90px', 
+                                                    cursor: 'pointer',
+                                                    color:'grey'
                                                 }}
                                                 onClick={() => this.deleteFromCart(purchase.productId)}
                                             >delete</i>
@@ -92,7 +94,7 @@ class Cart extends Component {
                             <div className="modal-dialog modal-dialog-scrollable" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalScrollableTitle">Irsandi Cafe</h5>
+                                        <h5 className="modal-title" id="exampleModalScrollableTitle">IrsandiCafe</h5>
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
