@@ -16,6 +16,14 @@ export const manipulateQuantity = (data) => {
     }
 }
 
+export const deleteFromCart = (id) => {
+    return {
+        type: 'DELETE_FROM_CART',
+        payload: 
+            {id}
+    }
+}
+
 export const checkout = (data) => {
     return {
         type: 'CHECKOUT',

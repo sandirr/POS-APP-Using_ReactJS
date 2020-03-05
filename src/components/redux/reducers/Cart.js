@@ -13,7 +13,7 @@ const Cart = (state = initialState, action) => {
                 cart: newDataCart,
                 totalPurchase: state.totalPurchase + 1
             }
-            
+
         case 'CHECKOUT_PENDING':
             return {
                 ...state
@@ -41,37 +41,15 @@ const Cart = (state = initialState, action) => {
                 cart: newProductAfterUpdate
             }
 
-        // case 'DELETE_USER_FULFILLED':
-        //     console.log(action.payload.data)
-        //     const newUserAfterDelete =
-        //         state.users.filter(user => user.id !== parseInt(action.payload.data.result))
-        //     return {
-        //         ...state,
-        //         users: newUserAfterDelete
-        //     }
+        case 'DELETE_FROM_CART':
+            const newProductAfterDelete =
+                state.cart.filter(product => product.productId !== parseInt(action.payload.id))
+            return {
+                ...state,
+                cart: newProductAfterDelete,
+                totalPurchase: state.totalPurchase - 1
+            }
 
-        // case 'UPDATE_USER_PENDING':
-        //     return {
-        //         ...state,
-        //     }
-
-        // case 'UPDATE_USER_REJECTED':
-        //     return {
-        //         ...state,
-        //     }
-
-        // case 'UPDATE_USER_FULFILLED':
-        //     console.log(action.payload.data)
-        //     const newUserAfterUpdate = state.users.map(user => {
-        //         if (user.id === action.payload.data.result.id) {
-        //             return action.payload.data.result
-        //         }
-        //         return user
-        //     })
-        //     return {
-        //         ...state,
-        //         users: newUserAfterUpdate
-        //     }
         default:
             return state
     }

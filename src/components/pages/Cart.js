@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import './Home.css'
 import Navbar from '../layout/Navbar'
 import uniqid from 'uniqid'
-import { checkout, manipulateQuantity } from '../redux/actions/Cart'
+import { checkout, manipulateQuantity, deleteFromCart } from '../redux/actions/Cart'
 
 class Cart extends Component {
     state = {
@@ -21,6 +21,9 @@ class Cart extends Component {
             data.quantity -= 1
             this.props.dispatch(manipulateQuantity(data))
         }
+    }
+    deleteFromCart = (id) => {
+        this.props.dispatch(deleteFromCart(id))
     }
     countTotal = () => {
         var tPrice = 0
@@ -51,7 +54,7 @@ class Cart extends Component {
             }
             else {
                 return (
-                    <div className="col-8" style={{ marginTop: '15px' }}>
+                    <div className="col-8" style={{ marginTop: '15px', paddingBottom: '40px' }}>
                         {this.props.productsInCart.map((purchase) =>
                             <li className="list-group-item"
                                 style={{ padding: '0', border: 'none' }} key={purchase.productId}>
@@ -69,7 +72,14 @@ class Cart extends Component {
 
                                             <button className="btn btn-outline-primary btn-sm"
                                                 onClick={() => this.addQuantity(purchase)}>+</button>
-                                            <span id={purchase.price} style={{ float: 'right' }} className="cartPrice">{purchase.price}</span>
+                                            <span id={purchase.price} style={{ float: 'right' }} className="cartPrice">Rp. {purchase.price * purchase.quantity}</span>
+                                            <i className="material-icons"
+                                                style={{
+                                                    position: 'relative',
+                                                    left: '90px', cursor: 'pointer'
+                                                }}
+                                                onClick={() => this.deleteFromCart(purchase.productId)}
+                                            >delete</i>
                                         </span>
                                     </div>
                                 </div>
