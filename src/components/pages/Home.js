@@ -130,7 +130,7 @@ class Products extends Component {
                         )}
                     </div>
                 </div>
-                <nav aria-label="Page navigation example">
+                <nav aria-label="Page navigation" style={{ position: 'fixed', bottom: '5px', width: '100%' }}>
                     <ul className="pagination justify-content-center">
                         {this.props.pages.map(page =>
                             <li className="page-item" key={page} id={page} onClick={() => this.changePage(page)}>

@@ -9,8 +9,8 @@ class History extends Component {
         id: 0,
         data: []
     }
-    getdetail = (id) => {
-        this.setState({ id: id })
+    getdetail = (idPurchase) => {
+        this.setState({ id: idPurchase })
     }
     getHistory() {
         this.props.dispatch(getHistory())

@@ -10,6 +10,22 @@ class Navbar extends Component {
         localStorage.removeItem('status')
     }
     render() {
+        const Dashboard = () => {
+            if (localStorage.getItem('status') === 'admin') {
+                return (
+                    <li className="nav-item">
+                        <Link className="nav-link a" to="/dash">
+                            <i className="material-icons small">person</i>
+                            Dashboard</Link>
+                    </li>
+                )
+            }
+            else {
+                return (
+                    <li></li>
+                )
+            }
+        }
         return (
             <nav className="navbar sticky-top navbar-expand-lg navbar-light" style={{ background: 'white' }} >
                 <div className="container">
@@ -31,11 +47,7 @@ class Navbar extends Component {
                                     <i className="material-icons small">shopping_cart</i>Cart <span className="badge badge-info">{this.props.number}</span>
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link a" to="/dash">
-                                    <i className="material-icons small">person</i>Dashboard
-                                </Link>
-                            </li>
+                            <Dashboard />
                             <li className="nav-item">
                                 <Link className="nav-link a" to="/login" onClick={this.logout}>
                                     <i className="material-icons small">lock_open</i>Logout

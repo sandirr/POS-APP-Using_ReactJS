@@ -63,7 +63,7 @@ class Product extends Component {
         this.setState({ serachName: e.target.value })
         const data = {
             activePage: 1,
-            activeCategory: '',
+            activeCategory: this.state.activeCategory,
             serachName: e.target.value,
             sort: this.state.sort,
             by: this.state.by
@@ -170,7 +170,10 @@ class Product extends Component {
                         )}
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
+                <Addproduct />
+                <Editproduct data={this.state.data} />
+                <Deleteproduct id={this.state.id} />
+                <nav aria-label="Page navigation example" style={{ position: 'fixed', bottom: '5px', width: '80%' }}>
                     <ul className="pagination justify-content-center">
                         {this.props.pages.map(page =>
                             <li className="page-item" key={page} id={page} onClick={() => this.changePage(page)}>
@@ -179,9 +182,6 @@ class Product extends Component {
                         )}
                     </ul>
                 </nav>
-                <Addproduct />
-                <Editproduct data={this.state.data} />
-                <Deleteproduct id={this.state.id} />
             </div>
 
         )
