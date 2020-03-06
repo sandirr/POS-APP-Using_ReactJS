@@ -1,71 +1,90 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import './Home.css'
+import React, { Component } from "react";
+import axios from "axios";
+import "./Home.css";
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
+    this.state = {
+      email: "",
+      password: ""
+    };
+  }
 
-        this.state = {
-            email: '',
-            password: ''
-        }
+  componentDidMount() {
+    if (localStorage.getItem("isAuth")) {
+      this.props.history.push("/");
     }
+  }
 
-    componentDidMount() {
-        if (localStorage.getItem('isAuth')) {
-            this.props.history.push('/')
-        }
-    }
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
-    onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
+  onSubmit = e => {
+    e.preventDefault();
 
-    onSubmit = (e) => {
-        e.preventDefault()
+    axios
+      .post("http://localhost:8181/user/login/", this.state)
+      .then(res => {
+        console.log(res.data);
+        localStorage.setItem("token", res.data.result.token);
+        localStorage.setItem("user-id", res.data.result.id);
+        localStorage.setItem("status", res.data.result.status);
+        localStorage.setItem("isAuth", true);
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-        axios
-            .post("http://localhost:8181/user/login/", this.state)
-            .then(res => {
-                console.log(res.data)
-                localStorage.setItem('token', res.data.result.token)
-                localStorage.setItem('user-id', res.data.result.id)
-                localStorage.setItem('status', res.data.result.status)
-                localStorage.setItem('isAuth', true)
-                this.props.history.push('/')
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-    render() {
-        return (
-            <div>
-                <div className="secure-img"></div>
-                <div className="container">
-                    <div className="row justify-content-md-center">
-                        <div className="col-md-8">
-                            <h4 style={{ margin: '20px auto' }}>Login</h4>
-                            <form onSubmit={this.onSubmit}>
-                                <div className="form-group">
-                                    <label>Email</label>
-                                    <input required type="email" className="form-control" placeholder="Enter email" name="email" onChange={this.onChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label>Password</label>
-                                    <input required type="password" className="form-control" placeholder="Enter password" name="password" onChange={this.onChange} />
-                                </div>
-                                <button type="submit" className="btn btn-primary" style={{ float: 'right' }}>Login</button>
-                            </form>
-                        </div>
-                    </div>
+  render() {
+    return (
+      <div>
+        <div className="secure-img"></div>
+        <div className="container">
+          <div className="row justify-content-md-center">
+            <div className="col-md-8">
+              <h4 style={{ margin: "20px auto" }}>Login</h4>
+              <form onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    required
+                    type="email"
+                    className="form-control"
+                    placeholder="Enter email"
+                    name="email"
+                    onChange={this.onChange}
+                  />
                 </div>
+                <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    required
+                    type="password"
+                    className="form-control"
+                    placeholder="Enter password"
+                    name="password"
+                    onChange={this.onChange}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  style={{ float: "right" }}
+                >
+                  Login
+                </button>
+              </form>
             </div>
-        )
-    }
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Login
+export default Login;
