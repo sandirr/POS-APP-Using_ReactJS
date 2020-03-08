@@ -1,6 +1,7 @@
 const initialState = {
   histories: [],
-  detailHistory: []
+  detailHistory: [],
+  lastWeekHistory: []
 };
 
 const Histories = (state = initialState, action) => {
@@ -17,6 +18,19 @@ const Histories = (state = initialState, action) => {
       return {
         ...state,
         histories: action.payload.data.result
+      };
+    case "GET_LAST_WEEK_HISTORY_PENDING":
+      return {
+        ...state
+      };
+    case "GET_LAST_WEEK_HISTORY_REJECTED":
+      return {
+        ...state
+      };
+    case "GET_LAST_WEEK_HISTORY_FULFILLED":
+      return {
+        ...state,
+        lastWeekHistory: action.payload.data.result
       };
     case "GET_DETAIL_HISTORY_PENDING":
       return {

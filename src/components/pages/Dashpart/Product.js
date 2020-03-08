@@ -104,6 +104,22 @@ class Product extends Component {
   }
 
   render() {
+    const PriceParsed = data => {
+      return (
+        <span>
+          {data.data
+            .toString()
+            .split("")
+            .reverse()
+            .join("")
+            .match(/\d{1,3}/g)
+            .join(".")
+            .split("")
+            .reverse()
+            .join("")}
+        </span>
+      );
+    };
     return (
       <div hidden={this.props.productHidden}>
         <ul className="nav nav-product">
@@ -209,14 +225,16 @@ class Product extends Component {
             />
           </form>
         </ul>
+
         <table className="table table-dash table-striped">
           <thead className="thead-dark">
             <tr>
-              <th scope="col">#ID</th>
+              <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Image</th>
               <th scope="col">Category</th>
               <th scope="col">Price</th>
+              <th scope="col">Stock</th>
               <th scope="col" colSpan="2">
                 Action
               </th>
@@ -231,7 +249,10 @@ class Product extends Component {
                   <img alt={product.description} src={product.image} />
                 </td>
                 <td>{product.category}</td>
-                <td>Rp. {product.price}</td>
+                <td>
+                  Rp. <PriceParsed data={product.price} />
+                </td>
+                <td>{product.stock}</td>
                 <td>
                   <button
                     className="btn btn-outline-warning"
@@ -256,12 +277,9 @@ class Product extends Component {
             ))}
           </tbody>
         </table>
-        <Addproduct />
-        <Editproduct data={this.state.data} />
-        <Deleteproduct id={this.state.id} />
         <nav
           aria-label="Page navigation example"
-          style={{ position: "fixed", bottom: "5px", width: "80%" }}
+          style={{ position: "fixed", bottom: "7px", width: "75%" }}
         >
           <ul className="pagination justify-content-center">
             {this.props.pages.map(page => (
@@ -278,6 +296,9 @@ class Product extends Component {
             ))}
           </ul>
         </nav>
+        <Addproduct />
+        <Editproduct data={this.state.data} />
+        <Deleteproduct id={this.state.id} />
       </div>
     );
   }

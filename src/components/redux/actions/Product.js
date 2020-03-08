@@ -7,11 +7,12 @@ export const getProducts = data => {
   const name = data.serachName || "";
   const sort = data.sort || "ASC";
   const by = data.by || "id";
+  const user = data.user || "admin";
   return {
     type: "GET_PRODUCT",
     payload: axios({
       method: "GET",
-      url: `http://localhost:8181/product/?limit=${limit}&page=${page}&category=${category}&name=${name}&sort=${sort}&by=${by}`
+      url: `http://localhost:8181/product/?limit=${limit}&page=${page}&category=${category}&name=${name}&sort=${sort}&by=${by}&user=${user}`
     })
   };
 };

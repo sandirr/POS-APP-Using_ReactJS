@@ -106,7 +106,7 @@ class User extends Component {
         <table className="table table-striped">
           <thead className="thead-dark">
             <tr>
-              <th scope="col">#ID</th>
+              <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Status</th>
               <th scope="col">Action</th>

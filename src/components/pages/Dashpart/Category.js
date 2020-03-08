@@ -34,7 +34,7 @@ class Category extends Component {
         <table className="table table-striped" name="table-category">
           <thead className="thead-dark">
             <tr>
-              <th scope="col">#ID</th>
+              <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Action</th>
             </tr>

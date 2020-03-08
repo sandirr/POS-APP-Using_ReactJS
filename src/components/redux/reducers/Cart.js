@@ -6,10 +6,10 @@ const initialState = {
 const Cart = (state = initialState, action) => {
   switch (action.type) {
     case "POST_CART":
-      const newDataCart = [...state.cart, action.payload.data];
+      const newItemtoCart = [...state.cart, action.payload.data];
       return {
         ...state,
-        cart: newDataCart,
+        cart: newItemtoCart,
         totalPurchase: state.totalPurchase + 1
       };
 

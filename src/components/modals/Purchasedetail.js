@@ -29,7 +29,7 @@ class Purchasedetail extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <p>#ID Purchase: {this.state.id}</p>
+                            <p>Invoice: {this.state.id}</p>
                             {this.props.detailHistory.map((e, index) =>
                                 <div className="row" key={index}>
                                     <div className="col-md-4">{e.name}</div>

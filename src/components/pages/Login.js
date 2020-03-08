@@ -8,12 +8,14 @@ class Login extends Component {
 
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      alertHidden: true,
+      error: ""
     };
   }
 
   componentDidMount() {
-    if (localStorage.getItem("isAuth")) {
+    if (localStorage.getItem("token")) {
       this.props.history.push("/");
     }
   }
@@ -28,15 +30,18 @@ class Login extends Component {
     axios
       .post("http://localhost:8181/user/login/", this.state)
       .then(res => {
-        console.log(res.data);
+        console.log(res.data.error)
+        if (res.data.error === 'Wrong Email') {
+          return this.setState({ alertHidden: false, error: "Email is not registered" });
+        }
         localStorage.setItem("token", res.data.result.token);
         localStorage.setItem("user-id", res.data.result.id);
         localStorage.setItem("status", res.data.result.status);
-        localStorage.setItem("isAuth", true);
         this.props.history.push("/");
       })
       .catch(err => {
         console.log(err);
+        this.setState({ alertHidden: false, error: "Wrong Password" });
       });
   };
 
@@ -47,6 +52,13 @@ class Login extends Component {
         <div className="container">
           <div className="row justify-content-md-center">
             <div className="col-md-8">
+              <div
+                className="alert alert-danger mt-2"
+                hidden={this.state.alertHidden}
+                role="alert"
+              >
+                {this.state.error}
+              </div>
               <h4 style={{ margin: "20px auto" }}>Login</h4>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">

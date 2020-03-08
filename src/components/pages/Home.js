@@ -16,7 +16,7 @@ class Products extends Component {
   };
 
   getProducts() {
-    const data = {};
+    const data = { user: "cashier" };
     this.props.dispatch(getProducts(data));
   }
 
@@ -28,7 +28,8 @@ class Products extends Component {
       activeCategory: e.target.id,
       serachName: "",
       sort: this.state.sort,
-      by: this.state.by
+      by: this.state.by,
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
@@ -40,7 +41,8 @@ class Products extends Component {
       activeCategory: this.state.activeCategory,
       serachName: "",
       sort: e.target.id,
-      by: this.state.by
+      by: this.state.by,
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
@@ -52,7 +54,8 @@ class Products extends Component {
       activeCategory: this.state.activeCategory,
       serachName: "",
       sort: this.state.sort,
-      by: e.target.id
+      by: e.target.id,
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
@@ -64,7 +67,8 @@ class Products extends Component {
       activeCategory: this.state.activeCategory,
       serachName: e.target.value,
       sort: this.state.sort,
-      by: this.state.by
+      by: this.state.by,
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
@@ -76,13 +80,14 @@ class Products extends Component {
       activeCategory: this.state.activeCategory,
       serachName: this.state.serachName,
       sort: this.state.sort,
-      by: this.state.by
+      by: this.state.by,
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
 
   componentDidMount() {
-    if (!localStorage.getItem("isAuth")) {
+    if (!localStorage.getItem("token")) {
       this.props.history.push("/login");
     }
     this.getProducts();
@@ -207,26 +212,23 @@ class Products extends Component {
               <CardProduct product={product} key={product.id} />
             ))}
           </div>
+          <nav aria-label="Page navigation">
+            <ul className="pagination justify-content-center">
+              {this.props.pages.map(page => (
+                <li
+                  className="page-item"
+                  key={page}
+                  id={page}
+                  onClick={() => this.changePage(page)}
+                >
+                  <Link className="page-link" to="#">
+                    {page}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-        <nav
-          aria-label="Page navigation"
-          style={{ position: "fixed", bottom: "5px", width: "100%" }}
-        >
-          <ul className="pagination justify-content-center">
-            {this.props.pages.map(page => (
-              <li
-                className="page-item"
-                key={page}
-                id={page}
-                onClick={() => this.changePage(page)}
-              >
-                <Link className="page-link" to="#">
-                  {page}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
       </Fragment>
     );
   }
