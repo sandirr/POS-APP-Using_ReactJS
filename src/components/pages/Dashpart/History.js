@@ -20,41 +20,39 @@ class History extends Component {
   componentDidMount() {
     this.getHistory();
   }
+  componentWillUpdate(){
+    var x = [];
+    var y = [];
+    var i = 0;
+    this.props.lastWeekHistory.forEach(e => {
+      x[i] = e.date_added.toString().substr(0, 10);
+      y[i] = e.totalPayment;
+      i++;
+    });
+    var popCanvas = document.getElementById("popChart");
+    new Chart(popCanvas, {
+      type: "bar",
+      data: {
+        labels: x,
+        datasets: [
+          {
+            label: "Last 7 Days Revenue",
+            data: y,
+            backgroundColor: [
+              "rgba(54, 162, 235, 0.6)",
+              "rgba(255, 206, 86, 0.6)",
+              "rgba(75, 192, 192, 0.6)",
+              "rgba(153, 102, 255, 0.6)",
+              "rgba(255, 159, 64, 0.6)",
+              "rgba(255, 99, 132, 0.6)",
+              "rgba(54, 162, 235, 0.6)"
+            ]
+          }
+        ]
+      }
+    });
+  }
   render() {
-    const Renderchart = () => {
-      var x = [];
-      var y = [];
-      var i = 0;
-      this.props.lastWeekHistory.forEach(e => {
-        x[i] = e.date_added.toString().substr(0, 10);
-        y[i] = e.totalPayment;
-        i++;
-      });
-      var popCanvas = document.getElementById("popChart");
-      new Chart(popCanvas, {
-        type: "bar",
-        data: {
-          labels: x,
-          datasets: [
-            {
-              label: "Last 7 Days Revenue",
-              data: y,
-              backgroundColor: [
-                "rgba(54, 162, 235, 0.6)",
-                "rgba(255, 206, 86, 0.6)",
-                "rgba(75, 192, 192, 0.6)",
-                "rgba(153, 102, 255, 0.6)",
-                "rgba(255, 159, 64, 0.6)",
-                "rgba(255, 99, 132, 0.6)",
-                "rgba(54, 162, 235, 0.6)"
-              ]
-            }
-          ]
-        }
-      });
-      return <span></span>;
-    };
-
     const PriceParsed = data => {
       return (
         <span>
@@ -100,16 +98,10 @@ class History extends Component {
           id="multiCollapseExample1"
         >
           <div className="card card-body">
-            {this.props.lastWeekHistory.map(e => (
-              <Renderchart />
-            ))}
             <canvas id="popChart" width="250" height="100"></canvas>
           </div>
         </div>
-        <div
-          className="collapse multi-collapse"
-          id="multiCollapseExample2"
-        >
+        <div className="collapse multi-collapse" id="multiCollapseExample2">
           <div className="card card-body">
             <table className="table table-striped" name="table-category">
               <thead className="thead-dark">
