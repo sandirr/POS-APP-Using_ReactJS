@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import "./Home.css";
-import Navbar from "../layout/Navbar";
 import Category from "./Dashpart/Category";
 import Product from "./Dashpart/Product";
 import User from "./Dashpart/User";
 import History from "./Dashpart/History";
+import Navbar from "../layout/Navbar";
 
 class Dashboard extends Component {
   state = {
@@ -102,7 +102,7 @@ class Dashboard extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar />
+        <Navbar activeNav="dashboard"/>
         <div className="container table-dash">
           <div className="row product-manage">
             <div className="col-lg-11">

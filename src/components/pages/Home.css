@@ -24,7 +24,7 @@ table.table td button {
 }
 
 .secure-img {
-  background-image: url(https://images.idgesg.net/images/article/2019/08/cso_gdpr_data_privacy_network_security_by_anya_berkut_gettyimages-1017910874_2400x1600-100808199-large.jpg);
+  background-image: url(./images/secure.jpg);
   height: 500px;
   width: 100%;
   margin-top: -350px;
@@ -53,7 +53,7 @@ table.table td button {
 }
 
 .cool {
-  background-image: url(./coffee.png);
+  background-image: url(./images/coffee.png);
   position: absolute;
   top: 0;
   bottom: 0;

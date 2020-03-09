@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import CardProduct from "../layout/CardProduct";
 import "./Home.css";
-import Navbar from "../layout/Navbar";
 import { connect } from "react-redux";
 import { getProducts } from "../redux/actions/Product";
 import { Link } from "react-router-dom";
+import Navbar from "../layout/Navbar";
 
 class Products extends Component {
   state = {
@@ -96,7 +96,7 @@ class Products extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar />
+        <Navbar activeNav="home"/>
         <div className="container">
           <ul className="nav nav-product a">
             <li className="nav-item">

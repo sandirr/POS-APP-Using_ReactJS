@@ -29,7 +29,7 @@ class History extends Component {
       y[i] = e.totalPayment;
       i++;
     });
-    var popCanvas = document.getElementById("popChart");
+    var popCanvas = document.getElementById("popChart").getContext('2d');;
     new Chart(popCanvas, {
       type: "bar",
       data: {

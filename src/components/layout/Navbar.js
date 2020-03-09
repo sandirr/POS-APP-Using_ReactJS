@@ -3,24 +3,42 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Navbar extends Component {
+  state = {
+    home: "nav-link a",
+    cart: "nav-link a",
+    dashboard: "nav-link a"
+  };
   logout = () => {
     localStorage.removeItem("user-id");
     localStorage.removeItem("token");
     localStorage.removeItem("status");
+  };
+  componentDidMount() {
+    this.active(this.props.activeNav);
+  }
+  active = activeNav => {
+    console.log(activeNav);
+    if (activeNav === "home") this.setState({ home: "nav-link a active" });
+    else if (activeNav === "cart") this.setState({ cart: "nav-link a active" });
+    else if (activeNav === "dashboard") this.setState({ dashboard: "nav-link a active" });
   };
   render() {
     const Dashboard = () => {
       if (localStorage.getItem("status") === "admin") {
         return (
           <li className="nav-item">
-            <Link className="nav-link a" to="/dash">
+            <Link
+              className={this.state.dashboard}
+              onClick={this.clickToActive}
+              to="/dash"
+            >
               <i className="material-icons small">person</i>
               Dashboard
             </Link>
           </li>
         );
       } else {
-        return <li></li>;
+        return <span></span>;
       }
     };
     return (
@@ -46,12 +64,12 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
               <li className="nav-item">
-                <Link className="nav-link a" to="/">
+                <Link className={this.state.home} to="/">
                   <i className="material-icons small">home</i>Home
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link a" to="/cart">
+                <Link className={this.state.cart} to="/cart">
                   <i className="material-icons small">shopping_cart</i>Cart{" "}
                   <span className="badge badge-info">{this.props.number}</span>
                 </Link>

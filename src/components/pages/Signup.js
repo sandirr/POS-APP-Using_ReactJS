@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Home.css";
-import Navbar from "../layout/Navbar";
+import Navbar from "../layout/Navbar"
 
 class Signup extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class Signup extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar activeNav="signup"/>
         <div className="secure-img"></div>
         <div className="container">
           <div className="row justify-content-md-center">

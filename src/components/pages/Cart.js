@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import "./Home.css";
-import Navbar from "../layout/Navbar";
 import uniqid from "uniqid";
 import {
   checkout,
   manipulateQuantity,
   deleteFromCart
 } from "../redux/actions/Cart";
+import Navbar from "../layout/Navbar";
 
 class Cart extends Component {
   constructor(props) {
@@ -118,10 +118,7 @@ class Cart extends Component {
         );
       } else {
         return (
-          <div
-            className="col-6"
-            style={{paddingBottom: "40px" }}
-          >
+          <div className="col-6" style={{ paddingBottom: "40px" }}>
             {this.props.productsInCart.map(cartItem => (
               <li
                 className="list-group-item"
@@ -201,8 +198,8 @@ class Cart extends Component {
       }
     };
     return (
-      <div>
-        <Navbar />
+      <Fragment>
+        <Navbar activeNav="cart"/>
         <div className="container">
           <div className="row justify-content-md-center mt-4">
             <ViewCart />
@@ -275,7 +272,7 @@ class Cart extends Component {
           src="about:blank"
           style={{ display: "none" }}
         ></iframe>
-      </div>
+      </Fragment>
     );
   }
 }
