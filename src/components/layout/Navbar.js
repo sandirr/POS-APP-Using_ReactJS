@@ -20,11 +20,15 @@ class Navbar extends Component {
     console.log(activeNav);
     if (activeNav === "home") this.setState({ home: "nav-link a active" });
     else if (activeNav === "cart") this.setState({ cart: "nav-link a active" });
-    else if (activeNav === "dashboard") this.setState({ dashboard: "nav-link a active" });
+    else if (activeNav === "dashboard")
+      this.setState({ dashboard: "nav-link a active" });
   };
   render() {
     const Dashboard = () => {
-      if (localStorage.getItem("status") === "admin") {
+      if (
+        localStorage.getItem("status") === "admin" ||
+        localStorage.getItem("status") === "super_admin"
+      ) {
         return (
           <li className="nav-item">
             <Link

@@ -93,7 +93,10 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.getItem("status") !== "admin") {
+    if (
+      localStorage.getItem("status") !== "admin" &&
+      localStorage.getItem("status") !== "super_admin"
+    ) {
       alert("You`re not authorized as administrator");
       this.props.history.push("/");
     }
@@ -102,7 +105,7 @@ class Dashboard extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar activeNav="dashboard"/>
+        <Navbar activeNav="dashboard" />
         <div className="container table-dash">
           <div className="row product-manage">
             <div className="col-lg-11">

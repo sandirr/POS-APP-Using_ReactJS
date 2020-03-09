@@ -34,71 +34,117 @@ class User extends Component {
 
   render() {
     const Buttondelete = user => {
-      if (user.user.status === "cashier") {
-        return (
-          <span>
-            <button
-              className="btn btn-outline-warning"
-              data-toggle="modal"
-              data-target="#edit-user"
-              onClick={() => this.editData(user.user)}
-            >
-              Edit
-            </button>{" "}
-            -{" "}
-            <button
-              className="btn btn-outline-danger"
-              data-toggle="modal"
-              data-target="#delete-user"
-              onClick={() => this.deleteData(user.user.id)}
-            >
-              Delete
-            </button>
-          </span>
-        );
-      } else if (
-        parseInt(user.user.id) === parseInt(localStorage.getItem("user-id"))
-      ) {
-        return (
-          <span>
-            <button
-              className="btn btn-outline-warning"
-              data-toggle="modal"
-              data-target="#edit-user"
-              onClick={() => this.editData(user.user)}
-            >
-              Edit
-            </button>{" "}
-            -{" "}
-            <button
-              className="btn btn-outline-danger"
-              disabled={true}
-              style={{ cursor: "not-allowed" }}
-            >
-              Delete
-            </button>
-          </span>
-        );
+      if (localStorage.getItem("status") === "admin") {
+        if (user.user.status === "cashier") {
+          return (
+            <span>
+              <button
+                className="btn btn-outline-warning"
+                data-toggle="modal"
+                data-target="#edit-user"
+                onClick={() => this.editData(user.user)}
+              >
+                Edit
+              </button>{" "}
+              -{" "}
+              <button
+                className="btn btn-outline-danger"
+                data-toggle="modal"
+                data-target="#delete-user"
+                onClick={() => this.deleteData(user.user.id)}
+              >
+                Delete
+              </button>
+            </span>
+          );
+        } else if (
+          parseInt(user.user.id) === parseInt(localStorage.getItem("user-id"))
+        ) {
+          return (
+            <span>
+              <button
+                className="btn btn-outline-warning"
+                data-toggle="modal"
+                data-target="#edit-user"
+                onClick={() => this.editData(user.user)}
+              >
+                Edit
+              </button>{" "}
+              -{" "}
+              <button
+                className="btn btn-outline-danger"
+                disabled={true}
+                style={{ cursor: "not-allowed" }}
+              >
+                Delete
+              </button>
+            </span>
+          );
+        } else {
+          return (
+            <span>
+              <button
+                className="btn btn-outline-warning"
+                disabled={true}
+                style={{ cursor: "not-allowed" }}
+              >
+                Edit
+              </button>{" "}
+              -{" "}
+              <button
+                className="btn btn-outline-danger"
+                disabled={true}
+                style={{ cursor: "not-allowed" }}
+              >
+                Delete
+              </button>
+            </span>
+          );
+        }
       } else {
-        return (
-          <span>
-            <button
-              className="btn btn-outline-warning"
-              disabled={true}
-              style={{ cursor: "not-allowed" }}
-            >
-              Edit
-            </button>{" "}
-            -{" "}
-            <button
-              className="btn btn-outline-danger"
-              disabled={true}
-              style={{ cursor: "not-allowed" }}
-            >
-              Delete
-            </button>
-          </span>
-        );
+        if (user.user.status === "super_admin") {
+          return (
+            <span>
+              <button
+                className="btn btn-outline-warning"
+                disabled={true}
+                style={{ cursor: "not-allowed" }}
+              >
+                Edit
+              </button>{" "}
+              -{" "}
+              <button
+                className="btn btn-outline-danger"
+                disabled={true}
+                style={{ cursor: "not-allowed" }}
+              >
+                Delete
+              </button>
+            </span>
+          );
+        } else {
+          return (
+            <span>
+              <button
+                className="btn btn-outline-warning"
+                data-toggle="modal"
+                data-target="#edit-user"
+                onClick={() => this.editData(user.user)}
+              >
+                Edit
+              </button>{" "}
+              -{" "}
+              <button
+                className="btn btn-outline-danger"
+                data-toggle="modal"
+                data-target="#delete-user"
+                onClick={() => this.deleteData(user.user.id)}
+              >
+                Delete
+              </button>
+            </span>
+          );
+        }
       }
     };
     return (
