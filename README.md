@@ -1,3 +1,9 @@
+# IrsandiCafe (Point of Sales App)
+
+## Backend
+
+This project use https://github.com/sandirr/pointofsale as backend
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
