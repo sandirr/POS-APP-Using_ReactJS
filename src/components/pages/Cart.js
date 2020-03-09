@@ -20,6 +20,11 @@ class Cart extends Component {
       isDisabled: true
     };
   }
+  componentDidMount() {
+    if (!localStorage.getItem("token")) {
+      this.props.history.push("/login");
+    }
+  }
   payment = e => {
     this.setState({
       pay: e.target.value
