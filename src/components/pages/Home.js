@@ -96,7 +96,7 @@ class Products extends Component {
   render() {
     return (
       <Fragment>
-        <Navbar activeNav="home"/>
+        <Navbar activeNav="home" />
         <div className="container">
           <ul className="nav nav-product a">
             <li className="nav-item">

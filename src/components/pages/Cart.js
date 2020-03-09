@@ -204,7 +204,7 @@ class Cart extends Component {
     };
     return (
       <Fragment>
-        <Navbar activeNav="cart"/>
+        <Navbar activeNav="cart" />
         <div className="container">
           <div className="row justify-content-md-center mt-4">
             <ViewCart />
@@ -255,7 +255,8 @@ class Cart extends Component {
                       type="number"
                       style={{
                         border: "none",
-                        borderBottom: "1px solid #5bc0de"
+                        borderBottom: "1px solid #5bc0de",
+                        outline: "none"
                       }}
                       onChange={this.payment}
                       value={this.state.pay}
