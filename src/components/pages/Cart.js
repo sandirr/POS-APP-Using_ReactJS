@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import "./Home.css";
-import uniqid from "uniqid";
 import {
   checkout,
   manipulateQuantity,
@@ -38,6 +37,12 @@ class Cart extends Component {
       this.setState({ isDisabled: true, change: 0 });
     }
   };
+  changeQuantity = (data, e) => {
+    if (e.target.value <= data.stock) {
+      data.quantity = parseInt(e.target.value);
+      this.props.dispatch(manipulateQuantity(data));
+    }
+  };
   addQuantity = data => {
     if (data.quantity < data.stock) {
       data.quantity += 1;
@@ -64,7 +69,6 @@ class Cart extends Component {
   };
   purchaseHandler = () => {
     const data = {
-      idBuyer: `${uniqid()}`,
       products: this.props.productsInCart
     };
     this.props.dispatch(checkout(data));
@@ -130,7 +134,10 @@ class Cart extends Component {
                 style={{ padding: "0", border: "none" }}
                 key={cartItem.productId}
               >
-                <div className="media" style={{ textAlign: "left" }}>
+                <div
+                  className="media"
+                  style={{ textAlign: "left", marginBottom: -10 }}
+                >
                   <img
                     style={{
                       width: "64px",
@@ -152,9 +159,17 @@ class Cart extends Component {
                         -
                       </button>
 
-                      <button className="btn cartStock">
-                        {cartItem.quantity}
-                      </button>
+                      <input
+                        onChange={value => this.changeQuantity(cartItem, value)}
+                        value={cartItem.quantity}
+                        style={{
+                          width: 35,
+                          textAlign: "center",
+                          alignSelf: "center",
+                          border: "none",
+                          outline: "none"
+                        }}
+                      ></input>
 
                       <button
                         className="btn btn-outline-primary btn-sm"

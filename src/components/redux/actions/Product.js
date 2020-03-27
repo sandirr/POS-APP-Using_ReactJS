@@ -4,7 +4,7 @@ export const getProducts = data => {
   const limit = data.limit || 8;
   const page = data.activePage || 1;
   const category = data.activeCategory || "";
-  const name = data.serachName || "";
+  const name = data.searchName || "";
   const sort = data.sort || "ASC";
   const by = data.by || "id";
   const user = data.user || "admin";

@@ -26,6 +26,7 @@ class Addproduct extends Component {
   };
   handleFileChange = e => {
     const image = e.target.files[0];
+    console.log(e.target.files[0]);
     if (image.size > 1024 * 1024 * 5)
       return alert("Not allowed upload more than 5MB");
     const imageArr = image.name.split(".");
@@ -37,7 +38,7 @@ class Addproduct extends Component {
       imageExt !== "gif"
     )
       return alert("Not allowed upload another file except image");
-      
+
     this.setState({
       image: image,
       imageText: e.target.value

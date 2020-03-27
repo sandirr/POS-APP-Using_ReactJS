@@ -3,97 +3,130 @@ import CardProduct from "../layout/CardProduct";
 import "./Home.css";
 import { connect } from "react-redux";
 import { getProducts } from "../redux/actions/Product";
-import { Link } from "react-router-dom";
+import { getCategories } from "../redux/actions/Category";
+import { Link, withRouter } from "react-router-dom";
 import Navbar from "../layout/Navbar";
+import querystring from 'query-string'
 
 class Products extends Component {
   state = {
     activePage: 1,
     sort: "ASC",
     by: "id",
-    serachName: "",
+    searchName: "",
     activeCategory: ""
   };
 
-  getProducts() {
-    const data = { user: "cashier" };
-    this.props.dispatch(getProducts(data));
-  }
-
-  onClickMenu = e => {
-    this.setState({ activeCategory: e.target.id });
-    if (e.target.id === "") this.setState({ activeCategory: "" });
+  onClickMenu = async e => {
+    await this.setState({ activeCategory: e });
+    this.props.history.push(
+      `?name=${this.state.searchName}&category=${e}&sort=${this.state.sort}&by=${this.state.by}`
+    );
+    if (e === "") this.setState({ activeCategory: "" });
     const data = {
       activePage: 1,
-      activeCategory: e.target.id,
-      serachName: "",
+      activeCategory: e,
+      searchName: this.state.searchName,
       sort: this.state.sort,
       by: this.state.by,
-      user: "cashier"
+      user:'cashier'
+    };
+    this.props.dispatch(getProducts(data));
+    this.props.dispatch(getCategories());
+  };
+
+  onSort = async e => {
+    await this.setState({ sort: e });
+    this.props.history.push(
+      `?name=${this.state.searchName}&category=${this.state.activeCategory}&sort=${e}&by=${this.state.by}`
+    );
+    const data = {
+      activePage: 1,
+      activeCategory: this.state.activeCategory,
+      searchName: this.state.searchName,
+      sort: e,
+      by: this.state.by,
+      user:'cashier'
     };
     this.props.dispatch(getProducts(data));
   };
 
-  onSort = e => {
-    this.setState({ sort: e.target.id });
+  onBy = async e => {
+    await this.setState({ by: e });
+    this.props.history.push(
+      `?name=${this.state.searchName}&category=${this.state.activeCategory}&sort=${this.state.sort}&by=${e}`
+    );
     const data = {
       activePage: 1,
       activeCategory: this.state.activeCategory,
-      serachName: "",
-      sort: e.target.id,
-      by: this.state.by,
-      user: "cashier"
-    };
-    this.props.dispatch(getProducts(data));
-  };
-
-  onBy = e => {
-    this.setState({ by: e.target.id });
-    const data = {
-      activePage: 1,
-      activeCategory: this.state.activeCategory,
-      serachName: "",
+      searchName: this.state.searchName,
       sort: this.state.sort,
-      by: e.target.id,
-      user: "cashier"
+      by: e,
+      user:'cashier'
     };
     this.props.dispatch(getProducts(data));
   };
 
   onChangeSearch = e => {
-    this.setState({ serachName: e.target.value });
+    this.setState({ searchName: e.target.value });
+    this.props.history.push(
+      `?name=${e.target.value}&category=${this.state.activeCategory}&sort=${this.state.sort}&by=${this.state.by}`
+    );
     const data = {
       activePage: 1,
       activeCategory: this.state.activeCategory,
-      serachName: e.target.value,
+      searchName: e.target.value,
       sort: this.state.sort,
       by: this.state.by,
-      user: "cashier"
+      user:'cashier'
     };
     this.props.dispatch(getProducts(data));
   };
 
-  changePage = e => {
-    this.setState({ activePage: e });
+  changePage = async e => {
+    await this.setState({ activePage: e });
+    this.props.history.push(
+      `?name=${this.state.searchName}&category=${this.state.activeCategory}&sort=${this.state.sort}&by=${this.state.by}&page=${e}`
+    );
     const data = {
       activePage: e,
       activeCategory: this.state.activeCategory,
-      serachName: this.state.serachName,
+      searchName: this.state.searchName,
       sort: this.state.sort,
       by: this.state.by,
-      user: "cashier"
+      user:'cashier'
     };
     this.props.dispatch(getProducts(data));
   };
+
+  getProducts() {
+    var q = querystring.parse(this.props.location.search);
+    var data;
+    if (q) {
+      data = {
+        activePage: q.page,
+        activeCategory: q.category,
+        searchName: q.name,
+        sort: q.sort,
+        by: q.by,
+        user:'cashier'
+      };
+    } else {
+      data = {user:'cashier'};
+    }
+    this.props.dispatch(getProducts(data));
+  }
 
   componentDidMount() {
     if (!localStorage.getItem("token")) {
       this.props.history.push("/login");
     }
     this.getProducts();
+    this.props.dispatch(getCategories())
   }
 
   render() {
+    console.log(this.props.categories)
     return (
       <Fragment>
         <Navbar activeNav="home" />
@@ -104,31 +137,23 @@ class Products extends Component {
                 className="nav-link"
                 id=""
                 to="#"
-                onClick={this.onClickMenu}
+                onClick={()=>this.onClickMenu('')}
               >
                 All
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                id="food"
-                to="#"
-                onClick={this.onClickMenu}
-              >
-                Foods
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link"
-                id="drink"
-                to="#"
-                onClick={this.onClickMenu}
-              >
-                Drinks
-              </Link>
-            </li>
+            {this.props.categories.map(category => (
+              <li className="nav-item">
+                <Link
+                  to="#"
+                  className="nav-link"
+                  id={category.name}
+                  onClick={()=>this.onClickMenu(category.name)}
+                >
+                  {category.name}
+                </Link>
+              </li>
+            ))}
             <li className="nav-item dropdown">
               <Link
                 className="nav-link dropdown-toggle"
@@ -145,7 +170,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="ASC"
-                  onClick={this.onSort}
+                  onClick={()=>this.onSort('ASC')}
                 >
                   Ascending
                 </Link>
@@ -153,7 +178,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="DESC"
-                  onClick={this.onSort}
+                  onClick={()=>this.onSort('DESC')}
                 >
                   Descending
                 </Link>
@@ -175,7 +200,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="date_added"
-                  onClick={this.onBy}
+                  onClick={()=>this.onBy('date_added')}
                 >
                   Date Added
                 </Link>
@@ -183,7 +208,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="name"
-                  onClick={this.onBy}
+                  onClick={()=>this.onBy('name')}
                 >
                   Name
                 </Link>
@@ -191,7 +216,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="price"
-                  onClick={this.onBy}
+                  onClick={()=>this.onBy('price')}
                 >
                   Price
                 </Link>
@@ -237,8 +262,9 @@ class Products extends Component {
 const mapProducts = state => {
   return {
     products: state.products.products,
-    pages: state.products.pages
+    pages: state.products.pages,
+    categories: state.categories.categories
   };
 };
 
-export default connect(mapProducts)(Products);
+export default withRouter(connect(mapProducts)(Products));

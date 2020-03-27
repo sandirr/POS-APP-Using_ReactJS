@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import "../Home.css";
 import { connect } from "react-redux";
 import { getProducts } from "../../redux/actions/Product";
+import { getCategories } from "../../redux/actions/Category";
 
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import querystring from "query-string";
 
 import Addproduct from "../../modals/Addproduct";
 import Editproduct from "../../modals/Editproduct";
@@ -17,65 +19,81 @@ class Product extends Component {
     activePage: 1,
     sort: "ASC",
     by: "id",
-    serachName: "",
+    searchName: "",
     activeCategory: ""
   };
 
-  onClickMenu = e => {
-    this.setState({ activeCategory: e.target.id });
-    if (e.target.id === "") this.setState({ activeCategory: "" });
+  onClickMenu = async e => {
+    await this.setState({ activeCategory: e });
+    this.props.history.push(
+      `/dash?name=${this.state.searchName}&category=${e}&sort=${this.state.sort}&by=${this.state.by}`
+    );
+    if (e === "") this.setState({ activeCategory: "" });
     const data = {
       activePage: 1,
-      activeCategory: e.target.id,
-      serachName: "",
+      activeCategory: e,
+      searchName: this.state.searchName,
       sort: this.state.sort,
+      by: this.state.by
+    };
+    this.props.dispatch(getProducts(data));
+    this.props.dispatch(getCategories());
+  };
+
+  onSort = async e => {
+    await this.setState({ sort: e });
+    this.props.history.push(
+      `/dash?name=${this.state.searchName}&category=${this.state.activeCategory}&sort=${e}&by=${this.state.by}`
+    );
+    const data = {
+      activePage: 1,
+      activeCategory: this.state.activeCategory,
+      searchName: this.state.searchName,
+      sort: e,
       by: this.state.by
     };
     this.props.dispatch(getProducts(data));
   };
 
-  onSort = e => {
-    this.setState({ sort: e.target.id });
+  onBy = async e => {
+    await this.setState({ by: e });
+    this.props.history.push(
+      `/dash?name=${this.state.searchName}&category=${this.state.activeCategory}&sort=${this.state.sort}&by=${e}`
+    );
     const data = {
       activePage: 1,
       activeCategory: this.state.activeCategory,
-      serachName: "",
-      sort: e.target.id,
-      by: this.state.by
-    };
-    this.props.dispatch(getProducts(data));
-  };
-
-  onBy = e => {
-    this.setState({ by: e.target.id });
-    const data = {
-      activePage: 1,
-      activeCategory: this.state.activeCategory,
-      serachName: "",
+      searchName: this.state.searchName,
       sort: this.state.sort,
-      by: e.target.id
+      by: e
     };
     this.props.dispatch(getProducts(data));
   };
 
   onChangeSearch = e => {
-    this.setState({ serachName: e.target.value });
+    this.setState({ searchName: e.target.value });
+    this.props.history.push(
+      `/dash/name=${e.target.value}&category=${this.state.activeCategory}&sort=${this.state.sort}&by=${this.state.by}`
+    );
     const data = {
       activePage: 1,
       activeCategory: this.state.activeCategory,
-      serachName: e.target.value,
+      searchName: e.target.value,
       sort: this.state.sort,
       by: this.state.by
     };
     this.props.dispatch(getProducts(data));
   };
 
-  changePage = e => {
-    this.setState({ activePage: e });
+  changePage = async e => {
+    await this.setState({ activePage: e });
+    this.props.history.push(
+      `/dash/name=${this.state.searchName}&category=${this.state.activeCategory}&sort=${this.state.sort}&by=${this.state.by}&page=${e}`
+    );
     const data = {
       activePage: e,
       activeCategory: this.state.activeCategory,
-      serachName: this.state.serachName,
+      searchName: this.state.searchName,
       sort: this.state.sort,
       by: this.state.by
     };
@@ -83,7 +101,19 @@ class Product extends Component {
   };
 
   getProducts() {
-    const data = {};
+    var q = querystring.parse(this.props.location.search);
+    var data;
+    if (q) {
+      data = {
+        activePage: q.page,
+        activeCategory: q.category,
+        searchName: q.name,
+        sort: q.sort,
+        by: q.by
+      };
+    } else {
+      data = {};
+    }
     this.props.dispatch(getProducts(data));
   }
 
@@ -124,30 +154,26 @@ class Product extends Component {
       <div hidden={this.props.productHidden}>
         <ul className="nav nav-product">
           <li className="nav-item">
-            <Link to="#" className="nav-link" id="" onClick={this.onClickMenu}>
+            <Link
+              to="#"
+              className="nav-link"
+              onClick={() => this.onClickMenu("")}
+            >
               All
             </Link>
           </li>
-          <li className="nav-item">
-            <Link
-              to="#"
-              className="nav-link"
-              id="food"
-              onClick={this.onClickMenu}
-            >
-              Foods
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="#"
-              className="nav-link"
-              id="drink"
-              onClick={this.onClickMenu}
-            >
-              Drinks
-            </Link>
-          </li>
+
+          {this.props.categories.map((category, index) => (
+            <li className="nav-item" key={index}>
+              <Link
+                to="#"
+                className="nav-link"
+                onClick={() => this.onClickMenu(category.name)}
+              >
+                {category.name}
+              </Link>
+            </li>
+          ))}
           <li className="nav-item dropdown">
             <Link
               to="#"
@@ -164,7 +190,7 @@ class Product extends Component {
                 to="#"
                 className="dropdown-item"
                 id="ASC"
-                onClick={this.onSort}
+                onClick={() => this.onSort("ASC")}
               >
                 Ascending
               </Link>
@@ -172,7 +198,7 @@ class Product extends Component {
                 to="#"
                 className="dropdown-item"
                 id="DESC"
-                onClick={this.onSort}
+                onClick={() => this.onSort("DESC")}
               >
                 Descending
               </Link>
@@ -194,7 +220,7 @@ class Product extends Component {
                 to="#"
                 className="dropdown-item"
                 id="date_added"
-                onClick={this.onBy}
+                onClick={() => this.onBy("date_added")}
               >
                 Date Added
               </Link>
@@ -202,7 +228,7 @@ class Product extends Component {
                 to="#"
                 className="dropdown-item"
                 id="name"
-                onClick={this.onBy}
+                onClick={() => this.onBy("name")}
               >
                 Name
               </Link>
@@ -210,7 +236,7 @@ class Product extends Component {
                 to="#"
                 className="dropdown-item"
                 id="price"
-                onClick={this.onBy}
+                onClick={() => this.onBy("price")}
               >
                 Price
               </Link>
@@ -307,8 +333,9 @@ class Product extends Component {
 const mapProducts = state => {
   return {
     products: state.products.products,
-    pages: state.products.pages
+    pages: state.products.pages,
+    categories: state.categories.categories
   };
 };
 
-export default connect(mapProducts)(Product);
+export default withRouter(connect(mapProducts)(Product));

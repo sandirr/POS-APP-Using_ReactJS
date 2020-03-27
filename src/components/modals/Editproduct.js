@@ -28,12 +28,17 @@ class Editproduct extends Component {
   onSetValue = data => {
     this.setState({
       name: data.name,
-      category: data.category,
       description: data.description,
       stock: data.stock,
       price: data.price,
       id: data.id
     });
+
+    this.props.categories.forEach(category =>{
+      if(category.name === data.category){
+        this.setState({category: category.id})
+      }
+    })
   };
 
   onChangeHandler = e => {
@@ -69,8 +74,9 @@ class Editproduct extends Component {
     data.append("price", this.state.price);
     data.append("stock", this.state.stock);
     data.append("description", this.state.description);
-    if (this.state.category === "Food") data.append("category", 1);
-    if (this.state.category === "Drink") data.append("category", 2);
+    data.append("category", this.state.category);
+    // if (this.state.category === "Food") data.append("category", 1);
+    // if (this.state.category === "Drink") data.append("category", 2);
 
     if (this.state.image === "") {
       data.delete("image");
@@ -144,9 +150,6 @@ class Editproduct extends Component {
                     name="category"
                     onChange={this.onChangeHandler}
                   >
-                    <option value={0} disabled={true}>
-                      Choose category
-                    </option>
                     {this.props.categories.map((category, index) => (
                       <option key={category.id} value={category.id}>
                         {category.name}

@@ -48,7 +48,7 @@ class Navbar extends Component {
     return (
       <nav
         className="navbar sticky-top navbar-expand-lg navbar-light"
-        style={{ background: "white" }}
+        style={{ background: "#f3f3f3" }}
       >
         <div className="container">
           <button

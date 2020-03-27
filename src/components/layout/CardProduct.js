@@ -6,12 +6,11 @@ import { postCart } from "../redux/actions/Cart";
 class CardProduct extends Component {
   addToCart = e => {
     var a;
-    this.props.productsInCart.map(product => {
+    this.props.productsInCart.forEach(product => {
       if (parseInt(product.productId) === parseInt(e.id)) {
         a = 0;
-        return alert("Already in cart");
+        alert("Already in cart");
       }
-      return product;
     });
 
     if (a !== 0) {
