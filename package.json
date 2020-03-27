@@ -10,6 +10,7 @@
     "chart.js": "^2.9.3",
     "query-string": "^6.11.1",
     "react": "^16.12.0",
+    "react-barcode": "^1.4.0",
     "react-confirm-alert": "^2.5.1",
     "react-dom": "^16.12.0",
     "react-redux": "^7.2.0",

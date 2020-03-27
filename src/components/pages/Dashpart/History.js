@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "../Home.css";
 import { connect } from "react-redux";
-import { getHistory, getLastWeekHistory } from "../../redux/actions/History";
+import { getHistory } from "../../redux/actions/History";
 import Purchasedetail from "../../modals/Purchasedetail";
 import Chart from "chart.js";
+import axios from "axios";
 
 class History extends Component {
   state = {
@@ -15,43 +16,43 @@ class History extends Component {
   };
   getHistory() {
     this.props.dispatch(getHistory());
-    this.props.dispatch(getLastWeekHistory());
   }
   componentDidMount() {
     this.getHistory();
-  }
-  componentWillUpdate(){
-    var x = [];
-    var y = [];
-    var i = 0;
-    this.props.lastWeekHistory.forEach(e => {
-      x[i] = e.date_added.toString().substr(0, 10);
-      y[i] = e.totalPayment;
-      i++;
+    axios.get("http://localhost:8181/lastweek").then(res => {
+      var x = [];
+      var y = [];
+      var i = 0;
+      res.data.result.forEach(e => {
+        x[i] = e.date_added.toString().substr(0, 10);
+        y[i] = e.totalPayment;
+        i++;
+      });
+      var popCanvas = document.getElementById("popChart").getContext("2d");
+      new Chart(popCanvas, {
+        type: "bar",
+        data: {
+          labels: x,
+          datasets: [
+            {
+              label: "Last 7 Days Revenue",
+              data: y,
+              backgroundColor: [
+                "rgba(54, 162, 235, 0.6)",
+                "rgba(255, 206, 86, 0.6)",
+                "rgba(75, 192, 192, 0.6)",
+                "rgba(153, 102, 255, 0.6)",
+                "rgba(255, 159, 64, 0.6)",
+                "rgba(255, 99, 132, 0.6)",
+                "rgba(54, 162, 235, 0.6)"
+              ]
+            }
+          ]
+        }
+      });
     });
-    var popCanvas = document.getElementById("popChart").getContext('2d');;
-    new Chart(popCanvas, {
-      type: "bar",
-      data: {
-        labels: x,
-        datasets: [
-          {
-            label: "Last 7 Days Revenue",
-            data: y,
-            backgroundColor: [
-              "rgba(54, 162, 235, 0.6)",
-              "rgba(255, 206, 86, 0.6)",
-              "rgba(75, 192, 192, 0.6)",
-              "rgba(153, 102, 255, 0.6)",
-              "rgba(255, 159, 64, 0.6)",
-              "rgba(255, 99, 132, 0.6)",
-              "rgba(54, 162, 235, 0.6)"
-            ]
-          }
-        ]
-      }
-    });
   }
+ 
   render() {
     const PriceParsed = data => {
       return (
@@ -145,8 +146,7 @@ class History extends Component {
 
 const mapHistories = state => {
   return {
-    histories: state.histories.histories,
-    lastWeekHistory: state.histories.lastWeekHistory
+    histories: state.histories.histories
   };
 };
 
