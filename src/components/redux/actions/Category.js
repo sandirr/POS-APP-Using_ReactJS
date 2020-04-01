@@ -5,7 +5,11 @@ export const getCategories = () => {
     type: "GET_CATEGORIES",
     payload: axios({
       method: "GET",
-      url: url + "category"
+      url: url + "category",
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -16,7 +20,11 @@ export const postCategory = data => {
     payload: axios({
       method: "POST",
       url: url + "category",
-      data: data
+      data: data,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -27,7 +35,11 @@ export const patchCategory = (data, id) => {
     payload: axios({
       method: "PATCH",
       url: url + "category/" + id,
-      data: data
+      data: data,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -37,7 +49,11 @@ export const deleteCategory = id => {
     type: "DELETE_CATEGORY",
     payload: axios({
       method: "DELETE",
-      url: "http://localhost:8181/category/" + id
+      url: url + "category/" + id,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };

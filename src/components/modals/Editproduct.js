@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getCategories } from "../redux/actions/Category";
 import { patchProduct } from "../redux/actions/Product";
-
+const url = process.env.REACT_APP_URL;
 class Editproduct extends Component {
   state = {
     id: 0,
@@ -75,8 +75,6 @@ class Editproduct extends Component {
     data.append("stock", this.state.stock);
     data.append("description", this.state.description);
     data.append("category", this.state.category);
-    // if (this.state.category === "Food") data.append("category", 1);
-    // if (this.state.category === "Drink") data.append("category", 2);
 
     if (this.state.image === "") {
       data.delete("image");
@@ -96,7 +94,7 @@ class Editproduct extends Component {
         <div className="modal-dialog modal-dialog-scrollable" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalScrollableTitle">
+              <h5 className="modal-title">
                 Edit Menu
               </h5>
               <button
@@ -125,7 +123,7 @@ class Editproduct extends Component {
                 </div>
                 <div style={{ width: "100%", textAlign: "center" }}>
                   <img
-                    src={this.props.data.image}
+                    src={url + this.props.data.image}
                     alt="..."
                     style={{ height: "80px", width: "150px" }}
                   />

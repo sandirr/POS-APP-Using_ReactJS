@@ -5,7 +5,11 @@ export const getUsers = () => {
     type: "GET_USERS",
     payload: axios({
       method: "GET",
-      url: url + "user"
+      url: url + "user",
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -16,7 +20,11 @@ export const patchUser = (data, id) => {
     payload: axios({
       method: "PATCH",
       url: url + "user/" + id,
-      data: data
+      data: data,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -26,7 +34,11 @@ export const deleteUser = id => {
     type: "DELETE_USER",
     payload: axios({
       method: "DELETE",
-      url: url + "user/" + id
+      url: url + "user/" + id,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };

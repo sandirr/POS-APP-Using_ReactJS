@@ -5,7 +5,11 @@ export const getHistory = () => {
     type: "GET_HISTORY",
     payload: axios({
       method: "GET",
-      url: url + "purchase"
+      url: url + "purchase",
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -14,7 +18,11 @@ export const getLastWeekHistory = () => {
     type: "GET_LAST_WEEK_HISTORY",
     payload: axios({
       method: "GET",
-      url: url + "lastweek"
+      url: url + "lastweek",
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -23,7 +31,11 @@ export const getDetailHistory = id => {
     type: "GET_DETAIL_HISTORY",
     payload: axios({
       method: "GET",
-      url: url + "purchase/" + id
+      url: url + "purchase/" + id,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };

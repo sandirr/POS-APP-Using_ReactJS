@@ -15,7 +15,11 @@ export const getProducts = data => {
       method: "GET",
       url:
         url +
-        `product/?limit=${limit}&page=${page}&category=${category}&name=${name}&sort=${sort}&by=${by}&user=${user}`
+        `product/?limit=${limit}&page=${page}&category=${category}&name=${name}&sort=${sort}&by=${by}&user=${user}`,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -26,7 +30,11 @@ export const postProduct = data => {
     payload: axios({
       method: "POST",
       url: url + "product",
-      data: data
+      data: data,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -37,7 +45,11 @@ export const patchProduct = (data, id) => {
     payload: axios({
       method: "PATCH",
       url: url + "product/" + id,
-      data: data
+      data: data,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
@@ -47,7 +59,11 @@ export const deleteProduct = id => {
     type: "DELETE_PRODUCT",
     payload: axios({
       method: "DELETE",
-      url: url + "product/" + id
+      url: url + "product/" + id,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
