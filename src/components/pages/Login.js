@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Home.css";
-
+const url = process.env.REACT_APP_URL;
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -28,11 +28,14 @@ class Login extends Component {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8181/user/login/", this.state)
+      .post(url + "user/login/", this.state)
       .then(res => {
-        console.log(res.data.error)
-        if (res.data.error === 'Wrong Email') {
-          return this.setState({ alertHidden: false, error: "Email is not registered" });
+        console.log(res.data.error);
+        if (res.data.error === "Wrong Email") {
+          return this.setState({
+            alertHidden: false,
+            error: "Email is not registered"
+          });
         }
         localStorage.setItem("token", res.data.result.token);
         localStorage.setItem("user-id", res.data.result.id);

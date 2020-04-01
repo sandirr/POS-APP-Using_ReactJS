@@ -1,11 +1,11 @@
 import axios from "axios";
-
+const url = process.env.REACT_APP_URL;
 export const getUsers = () => {
   return {
     type: "GET_USERS",
     payload: axios({
       method: "GET",
-      url: "http://localhost:8181/user"
+      url: url + "user"
     })
   };
 };
@@ -15,7 +15,7 @@ export const patchUser = (data, id) => {
     type: "UPDATE_USER",
     payload: axios({
       method: "PATCH",
-      url: "http://localhost:8181/user/" + id,
+      url: url + "user/" + id,
       data: data
     })
   };
@@ -26,7 +26,7 @@ export const deleteUser = id => {
     type: "DELETE_USER",
     payload: axios({
       method: "DELETE",
-      url: "http://localhost:8181/user/" + id
+      url: url + "user/" + id
     })
   };
 };

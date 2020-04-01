@@ -5,7 +5,7 @@ import { getHistory } from "../../redux/actions/History";
 import Purchasedetail from "../../modals/Purchasedetail";
 import Chart from "chart.js";
 import axios from "axios";
-
+const url = process.env.REACT_APP_URL;
 class History extends Component {
   state = {
     id: 0,
@@ -19,7 +19,7 @@ class History extends Component {
   }
   componentDidMount() {
     this.getHistory();
-    axios.get("http://localhost:8181/lastweek").then(res => {
+    axios.get(url + "lastweek").then(res => {
       var x = [];
       var y = [];
       var i = 0;

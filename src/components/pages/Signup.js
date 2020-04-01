@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./Home.css";
 import Navbar from "../layout/Navbar";
-
+const url = process.env.REACT_APP_URL;
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +24,7 @@ class Signup extends Component {
     if (this.state.password !== this.state.password2)
       return alert("Check your password/retype password");
     axios
-      .post("http://localhost:8181/user/register/", this.state)
+      .post(url + "user/register/", this.state)
       .then(res => {
         this.props.history.push("/dash");
       })

@@ -1,11 +1,11 @@
 import axios from "axios";
-
+const url = process.env.REACT_APP_URL;
 export const getHistory = () => {
   return {
     type: "GET_HISTORY",
     payload: axios({
       method: "GET",
-      url: "http://localhost:8181/purchase"
+      url: url + "purchase"
     })
   };
 };
@@ -14,7 +14,7 @@ export const getLastWeekHistory = () => {
     type: "GET_LAST_WEEK_HISTORY",
     payload: axios({
       method: "GET",
-      url: "http://localhost:8181/lastweek"
+      url: url + "lastweek"
     })
   };
 };
@@ -23,7 +23,7 @@ export const getDetailHistory = id => {
     type: "GET_DETAIL_HISTORY",
     payload: axios({
       method: "GET",
-      url: "http://localhost:8181/purchase/" + id
+      url: url + "purchase/" + id
     })
   };
 };

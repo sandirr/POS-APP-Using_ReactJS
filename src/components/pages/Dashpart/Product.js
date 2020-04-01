@@ -10,7 +10,7 @@ import querystring from "query-string";
 import Addproduct from "../../modals/Addproduct";
 import Editproduct from "../../modals/Editproduct";
 import Deleteproduct from "../../modals/Deleteproduct";
-
+const url = process.env.REACT_APP_URL;
 class Product extends Component {
   state = {
     data: [],
@@ -272,7 +272,7 @@ class Product extends Component {
                 <th scope="row">{product.id}</th>
                 <td>{product.name}</td>
                 <td>
-                  <img alt={product.description} src={product.image} />
+                  <img alt={product.description} src={url + product.image} />
                 </td>
                 <td>{product.category}</td>
                 <td>

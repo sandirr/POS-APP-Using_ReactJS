@@ -6,14 +6,17 @@ import Barcode from "react-barcode";
 class Purchasedetail extends Component {
   constructor(props) {
     super(props);
-    this._mount = true;
     this.state = {
-      tPrice: 0
+      tPrice: 0,
+      will_mount: false
     };
   }
 
   reset = () => {
-    this._mount = true;
+    this.setState({
+      will_mount: true,
+      tPrice: 0
+    });
   };
 
   componentDidMount() {
@@ -21,15 +24,14 @@ class Purchasedetail extends Component {
   }
 
   componentDidUpdate() {
-    if (this._mount) {
+    if (this.state.will_mount) {
       this.props.dispatch(getDetailHistory(this.props.id));
       if (this.props.detailHistory[0]) {
         var a = 0;
         this.props.detailHistory.forEach(e => {
           a += e.Price;
         });
-        this.setState({ tPrice: a });
-        this._mount = false;
+        this.setState({ tPrice: a, will_mount: false });
       }
     }
   }
@@ -55,14 +57,16 @@ class Purchasedetail extends Component {
                 data-dismiss="modal"
                 aria-label="Close"
               >
-                <span aria-hidden="true" onClick={this.reset}>&times;</span>
+                <span aria-hidden="true" onClick={this.reset}>
+                  &times;
+                </span>
               </button>
             </div>
             <div className="modal-body">
               <p>Invoice:</p>
               <div style={{ marginBottom: 15, marginTop: -15 }}>
                 <Barcode
-                  value={this.props.id}
+                  value={this.props.id.toString()}
                   width={1}
                   height={30}
                   fontSize={18}

@@ -7,7 +7,7 @@ import {
   deleteFromCart
 } from "../redux/actions/Cart";
 import Navbar from "../layout/Navbar";
-
+const url = process.env.REACT_APP_URL;
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -144,7 +144,7 @@ class Cart extends Component {
                       height: "60px",
                       borderRadius: "8px"
                     }}
-                    src={cartItem.image}
+                    src={url + cartItem.image}
                     className="mr-3"
                     alt="..."
                   />

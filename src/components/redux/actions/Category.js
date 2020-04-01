@@ -1,11 +1,11 @@
 import axios from "axios";
-
+const url = process.env.REACT_APP_URL;
 export const getCategories = () => {
   return {
     type: "GET_CATEGORIES",
     payload: axios({
       method: "GET",
-      url: "http://localhost:8181/category"
+      url: url + "category"
     })
   };
 };
@@ -15,7 +15,7 @@ export const postCategory = data => {
     type: "POST_CATEGORY",
     payload: axios({
       method: "POST",
-      url: "http://localhost:8181/category",
+      url: url + "category",
       data: data
     })
   };
@@ -26,7 +26,7 @@ export const patchCategory = (data, id) => {
     type: "UPDATE_CATEGORY",
     payload: axios({
       method: "PATCH",
-      url: "http://localhost:8181/category/" + id,
+      url: url + "category/" + id,
       data: data
     })
   };

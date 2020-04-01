@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Card.css";
 import { connect } from "react-redux";
 import { postCart } from "../redux/actions/Cart";
-
+const url = process.env.REACT_APP_URL;
 class CardProduct extends Component {
   addToCart = e => {
     var a;
@@ -34,7 +34,7 @@ class CardProduct extends Component {
     return (
       <div className="col-lg-3 col-md-4">
         <div className="card">
-          <img className="card-img-top" alt="" src={this.props.product.image} />
+          <img className="card-img-top" alt="" src={url + this.props.product.image} />
           <div className="card-body">
             <div>
               <p className="card-text">{this.props.product.name}</p>

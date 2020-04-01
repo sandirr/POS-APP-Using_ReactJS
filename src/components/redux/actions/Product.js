@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const url = process.env.REACT_APP_URL;
 export const getProducts = data => {
   const limit = data.limit || 8;
   const page = data.activePage || 1;
@@ -12,7 +13,9 @@ export const getProducts = data => {
     type: "GET_PRODUCT",
     payload: axios({
       method: "GET",
-      url: `http://localhost:8181/product/?limit=${limit}&page=${page}&category=${category}&name=${name}&sort=${sort}&by=${by}&user=${user}`
+      url:
+        url +
+        `product/?limit=${limit}&page=${page}&category=${category}&name=${name}&sort=${sort}&by=${by}&user=${user}`
     })
   };
 };
@@ -22,7 +25,7 @@ export const postProduct = data => {
     type: "POST_PRODUCT",
     payload: axios({
       method: "POST",
-      url: "http://localhost:8181/product",
+      url: url + "product",
       data: data
     })
   };
@@ -33,7 +36,7 @@ export const patchProduct = (data, id) => {
     type: "UPDATE_PRODUCT",
     payload: axios({
       method: "PATCH",
-      url: "http://localhost:8181/product/" + id,
+      url: url + "product/" + id,
       data: data
     })
   };
@@ -44,7 +47,7 @@ export const deleteProduct = id => {
     type: "DELETE_PRODUCT",
     payload: axios({
       method: "DELETE",
-      url: "http://localhost:8181/product/" + id
+      url: url + "product/" + id
     })
   };
 };

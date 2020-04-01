@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const url = process.env.REACT_APP_URL;
 export const postCart = data => {
   return {
     type: "POST_CART",
@@ -26,7 +26,7 @@ export const checkout = data => {
     type: "CHECKOUT",
     payload: axios({
       method: "POST",
-      url: "http://localhost:8181/purchase",
+      url: url + "purchase",
       data: data
     })
   };
