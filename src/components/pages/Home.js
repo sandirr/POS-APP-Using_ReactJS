@@ -6,7 +6,7 @@ import { getProducts } from "../redux/actions/Product";
 import { getCategories } from "../redux/actions/Category";
 import { Link, withRouter } from "react-router-dom";
 import Navbar from "../layout/Navbar";
-import querystring from 'query-string'
+import querystring from "query-string";
 
 class Products extends Component {
   state = {
@@ -29,7 +29,7 @@ class Products extends Component {
       searchName: this.state.searchName,
       sort: this.state.sort,
       by: this.state.by,
-      user:'cashier'
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
     this.props.dispatch(getCategories());
@@ -46,7 +46,7 @@ class Products extends Component {
       searchName: this.state.searchName,
       sort: e,
       by: this.state.by,
-      user:'cashier'
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
@@ -62,7 +62,7 @@ class Products extends Component {
       searchName: this.state.searchName,
       sort: this.state.sort,
       by: e,
-      user:'cashier'
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
@@ -78,7 +78,7 @@ class Products extends Component {
       searchName: e.target.value,
       sort: this.state.sort,
       by: this.state.by,
-      user:'cashier'
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
@@ -94,7 +94,7 @@ class Products extends Component {
       searchName: this.state.searchName,
       sort: this.state.sort,
       by: this.state.by,
-      user:'cashier'
+      user: "cashier"
     };
     this.props.dispatch(getProducts(data));
   };
@@ -109,10 +109,10 @@ class Products extends Component {
         searchName: q.name,
         sort: q.sort,
         by: q.by,
-        user:'cashier'
+        user: "cashier"
       };
     } else {
-      data = {user:'cashier'};
+      data = { user: "cashier" };
     }
     this.props.dispatch(getProducts(data));
   }
@@ -122,11 +122,10 @@ class Products extends Component {
       this.props.history.push("/login");
     }
     this.getProducts();
-    this.props.dispatch(getCategories())
+    this.props.dispatch(getCategories());
   }
 
   render() {
-    console.log(this.props.categories)
     return (
       <Fragment>
         <Navbar activeNav="home" />
@@ -137,18 +136,18 @@ class Products extends Component {
                 className="nav-link"
                 id=""
                 to="#"
-                onClick={()=>this.onClickMenu('')}
+                onClick={() => this.onClickMenu("")}
               >
                 All
               </Link>
             </li>
-            {this.props.categories.map(category => (
-              <li className="nav-item">
+            {this.props.categories.map((category, index) => (
+              <li className="nav-item" key={index}>
                 <Link
                   to="#"
                   className="nav-link"
                   id={category.name}
-                  onClick={()=>this.onClickMenu(category.name)}
+                  onClick={() => this.onClickMenu(category.name)}
                 >
                   {category.name}
                 </Link>
@@ -170,7 +169,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="ASC"
-                  onClick={()=>this.onSort('ASC')}
+                  onClick={() => this.onSort("ASC")}
                 >
                   Ascending
                 </Link>
@@ -178,7 +177,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="DESC"
-                  onClick={()=>this.onSort('DESC')}
+                  onClick={() => this.onSort("DESC")}
                 >
                   Descending
                 </Link>
@@ -200,7 +199,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="date_added"
-                  onClick={()=>this.onBy('date_added')}
+                  onClick={() => this.onBy("date_added")}
                 >
                   Date Added
                 </Link>
@@ -208,7 +207,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="name"
-                  onClick={()=>this.onBy('name')}
+                  onClick={() => this.onBy("name")}
                 >
                   Name
                 </Link>
@@ -216,7 +215,7 @@ class Products extends Component {
                   className="dropdown-item"
                   to="#"
                   id="price"
-                  onClick={()=>this.onBy('price')}
+                  onClick={() => this.onBy("price")}
                 >
                   Price
                 </Link>
