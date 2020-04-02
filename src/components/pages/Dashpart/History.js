@@ -145,7 +145,7 @@ class History extends Component {
           </div>
         </div>
 
-        <Purchasedetail id={this.state.id} />
+        <Purchasedetail id={this.state.id} mount={true} />
       </div>
     );
   }

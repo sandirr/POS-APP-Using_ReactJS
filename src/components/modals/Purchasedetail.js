@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getDetailHistory } from "../redux/actions/History";
+import { getDetailHistory, resetHistory } from "../redux/actions/History";
 import Barcode from "react-barcode";
 
 class Purchasedetail extends Component {
@@ -8,30 +8,31 @@ class Purchasedetail extends Component {
     super(props);
     this.state = {
       tPrice: 0,
-      will_mount: false
+      mount: this.props.mount
     };
   }
 
   reset = () => {
     this.setState({
-      will_mount: true,
-      tPrice: 0
+      tPrice: 0,
+      mount:true,
     });
+    this.props.dispatch(resetHistory());
   };
 
-  componentDidMount() {
-    this.setState({ tPrice: 0 });
+  componentWillReceiveProps({ id }) {
+    this.getData(id);
   }
 
-  componentDidUpdate() {
-    if (this.state.will_mount) {
-      this.props.dispatch(getDetailHistory(this.props.id));
+  getData(id) {
+    if (this.state.mount) {
+      this.props.dispatch(getDetailHistory(id));
       if (this.props.detailHistory[0]) {
-        var a = 0;
+        let a = 0;
         this.props.detailHistory.forEach(e => {
           a += e.Price;
         });
-        this.setState({ tPrice: a, will_mount: false });
+        this.setState({ tPrice: a, mount:false });
       }
     }
   }
@@ -43,7 +44,7 @@ class Purchasedetail extends Component {
         id="purchase-detail"
         role="dialog"
         aria-hidden="true"
-        onClick={this.reset}
+        onClick={() => this.reset()}
       >
         <div className="modal-dialog modal-dialog-scrollable" role="document">
           <div className="modal-content">
@@ -57,42 +58,46 @@ class Purchasedetail extends Component {
                 data-dismiss="modal"
                 aria-label="Close"
               >
-                <span aria-hidden="true" onClick={this.reset}>
+                <span aria-hidden="true" onClick={() => this.reset()}>
                   &times;
                 </span>
               </button>
             </div>
-            <div className="modal-body">
-              <p>Invoice:</p>
-              <div style={{ marginBottom: 15, marginTop: -15 }}>
-                <Barcode
-                  value={this.props.id.toString()}
-                  width={1}
-                  height={30}
-                  fontSize={18}
-                />
-              </div>
-              {this.props.detailHistory.map((e, index) => (
-                <div className="row" key={index}>
-                  <div className="col-md-4">{e.name}</div>
-                  <div className="col-md-4">{e.Qty}</div>
-                  <div className="col-md-4">Rp. {e.Price}</div>
+            {this.state.tPrice > 0 ? (
+              <div className="modal-body">
+                <p>Invoice:</p>
+                <div style={{ marginBottom: 15, marginTop: -15 }}>
+                  <Barcode
+                    value={this.props.id.toString()}
+                    width={1}
+                    height={30}
+                    fontSize={18}
+                  />
                 </div>
-              ))}
-              <hr />
-              <div className="row">
-                <div className="col-md-4">Total : </div>
-                <div className="col-md-4"></div>
-                <div className="col-md-4">Rp. {this.state.tPrice}</div>
+                {this.props.detailHistory.map((e, index) => (
+                  <div className="row" key={index}>
+                    <div className="col-md-4">{e.name}</div>
+                    <div className="col-md-4">{e.Qty}</div>
+                    <div className="col-md-4">Rp. {e.Price}</div>
+                  </div>
+                ))}
+                <hr />
+                <div className="row">
+                  <div className="col-md-4">Total : </div>
+                  <div className="col-md-4"></div>
+                  <div className="col-md-4">Rp. {this.state.tPrice}</div>
+                </div>
+                <button
+                  className="btn btn-info mt-3"
+                  data-dismiss="modal"
+                  onClick={this.reset}
+                >
+                  OK
+                </button>
               </div>
-              <button
-                className="btn btn-info mt-3"
-                data-dismiss="modal"
-                onClick={this.reset}
-              >
-                OK
-              </button>
-            </div>
+            ) : (
+              <span></span>
+            )}
           </div>
         </div>
       </div>

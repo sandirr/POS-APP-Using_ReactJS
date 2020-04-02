@@ -39,3 +39,8 @@ export const getDetailHistory = id => {
     })
   };
 };
+export const resetHistory = () => {
+  return {
+    type: "RESET_HISTORY"
+  };
+};

@@ -1,6 +1,5 @@
 {
-  "homepage": "https://sandirr.github.io/POS-APP-Using_ReactJS",
-  "name": "my-react",
+  "name": "irsandi-cafe",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

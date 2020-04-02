@@ -45,6 +45,11 @@ const Histories = (state = initialState, action) => {
         ...state,
         detailHistory: action.payload.data.result
       };
+    case "RESET_HISTORY":
+      return {
+        ...state,
+        detailHistory: []
+      };
 
     default:
       return state;
