@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-undef */
 /**
  * Welcome to your Workbox-powered service worker!
  *
@@ -11,14 +13,16 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js"
+);
 
 importScripts(
   "/POS-APP-Using_ReactJS/precache-manifest.adbfbb041fca75a2086d8c3c3b5843f0.js"
 );
 
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+self.addEventListener("message", event => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
@@ -33,7 +37,9 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/POS-APP-Using_ReactJS/index.html"), {
-  
-  blacklist: [/^\/_/,/\/[^/?]+\.[^/]+$/],
-});
+workbox.routing.registerNavigationRoute(
+  workbox.precaching.getCacheKeyForURL("/POS-APP-Using_ReactJS/index.html"),
+  {
+    blacklist: [/^\/_/, /\/[^/?]+\.[^/]+$/]
+  }
+);
