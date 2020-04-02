@@ -22,6 +22,7 @@
     "redux-promise-middleware": "^6.1.2",
     "uniqid": "^5.2.0"
   },
+  "homepage": "https://sandirr.github.io/POS-APP-Using_ReactJS",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
