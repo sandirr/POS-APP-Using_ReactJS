@@ -1,0 +1,61 @@
+.products {
+  min-height: 71vh;
+}
+
+.products,
+.table-dash {
+  margin-top: 20px;
+  background: white;
+}
+
+.table-dash table th,
+.table-dash table td {
+  text-align: center;
+}
+
+.table-dash img {
+  width: 42px;
+  height: 23px;
+}
+
+table.table td button {
+  font-size: 11px;
+  padding: 3px 12px;
+}
+
+.secure-img {
+  background-image: url(./images/secure.jpg);
+  height: 500px;
+  width: 100%;
+  margin-top: -350px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.nav-product {
+  background: transparent;
+  margin-bottom: -5px;
+  border-left: 5px solid #5bc0de;
+}
+
+.nav-product.a {
+  background: transparent;
+  margin-top: 20px;
+  margin-bottom: -5px;
+  border-left: 5px solid #5bc0de;
+}
+
+.nav-product .nav-link {
+  color: #5bc0de;
+  font-size: 14px;
+  font-family: "Open Sans";
+  font-weight: bolder;
+}
+
+.cool {
+  background-image: url(./images/coffee.png);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
