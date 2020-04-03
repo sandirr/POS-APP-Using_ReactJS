@@ -27,7 +27,11 @@ export const checkout = data => {
     payload: axios({
       method: "POST",
       url: url + "purchase",
-      data: data
+      data: data,
+      headers: {
+        token: localStorage.getItem("token"),
+        "user-id": localStorage.getItem("user-id")
+      }
     })
   };
 };
