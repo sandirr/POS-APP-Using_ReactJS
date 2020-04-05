@@ -1,4 +1,5 @@
 # IrsandiCafe (Point of Sales App)
+# Deploy : http://irsandicafe.epizy.com
 
 ## Backend
 
